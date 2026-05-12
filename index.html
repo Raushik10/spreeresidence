@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spreeresidence | Luxury Loft Rental</title>
+    <style>
+        /* --- CORE & VARIABLES --- */
+        :root {
+            --primary: #0f172a; 
+            --accent: #ca8a04; 
+            --accent-hover: #a16207;
+            --bg-light: #f8fafc;
+            --text-main: #334155;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            margin: 0; padding: 0; color: var(--text-main); background-color: var(--bg-light); overflow-x: hidden;
+        }
+        
+        /* --- HEADER & NAV --- */
+        header {
+            background-color: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px);
+            color: white; padding: 1rem 0; position: sticky; top: 0; z-index: 1000; transition: all 0.3s ease;
+        }
+        header.scrolled { padding: 0.5rem 0; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+        .nav-container {
+            display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: auto; padding: 0 20px;
+        }
+        nav { display: flex; align-items: center; gap: 30px; }
+        .logo { margin: 0; font-size: 1.8rem; font-weight: 800; letter-spacing: 1px; color: white; }
+        .logo span { color: var(--accent); }
+        nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 20px; }
+        nav ul li a { color: #cbd5e1; text-decoration: none; font-weight: 600; transition: color 0.3s; font-size: 0.95rem; }
+        nav ul li a:hover { color: var(--accent); }
+
+        .lang-selector {
+            background-color: transparent; color: white; border: 1px solid rgba(255,255,255,0.3);
+            padding: 6px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; outline: none; transition: 0.3s;
+        }
+        .lang-selector:hover { border-color: var(--accent); }
+        .lang-selector option { background-color: var(--primary); color: white; }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            background: linear-gradient(rgba(15, 23, 42, 0.5), rgba(15, 23, 42, 0.7)), url('images/DSC05935-HDR.jpg') center/cover fixed;
+            height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            color: white; text-align: center; padding: 0 20px;
+        }
+        .hero h2 { font-size: 4.5rem; margin-bottom: 15px; font-weight: 800; animation: fadeInDown 1s ease-out; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+        .hero p { font-size: 1.4rem; margin-bottom: 40px; color: #e2e8f0; animation: fadeInUp 1s ease-out 0.3s both; max-width: 600px; }
+        .btn {
+            background-color: var(--accent); color: white; padding: 16px 36px; text-decoration: none;
+            font-size: 1.1rem; border-radius: 50px; transition: all 0.3s; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;
+            animation: fadeInUp 1s ease-out 0.6s both; box-shadow: 0 10px 20px rgba(202, 138, 4, 0.3); border: none; cursor: pointer;
+        }
+        .btn:hover { background-color: var(--accent-hover); transform: translateY(-3px); box-shadow: 0 15px 25px rgba(202, 138, 4, 0.5); }
+
+        /* --- GENERAL SECTIONS --- */
+        section { padding: 100px 20px; max-width: 1200px; margin: auto; }
+        h2.section-title { text-align: center; font-size: 2.8rem; margin-bottom: 20px; color: var(--primary); position: relative; font-weight: 800; }
+        h2.section-title::after {
+            content: ''; width: 80px; height: 4px; background-color: var(--accent); display: block; margin: 15px auto 0; border-radius: 2px;
+        }
+
+        /* --- FEATURES --- */
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 60px; }
+        .feature-box {
+            background: white; padding: 40px 30px; border-radius: 16px; text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03); transition: all 0.4s ease; border: 1px solid #f1f5f9;
+        }
+        .feature-box:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-color: var(--accent); }
+        .feature-icon { font-size: 3rem; margin-bottom: 20px; display: block; }
+        .feature-box h3 { font-size: 1.4rem; color: var(--primary); margin-top: 0; }
+        .feature-box p { color: #64748b; line-height: 1.6; }
+
+        /* --- FILTERABLE GALLERY --- */
+        .gallery-section { background-color: white; }
+        .gallery-filters { display: flex; justify-content: center; gap: 15px; margin: 40px 0; flex-wrap: wrap; }
+        .filter-btn {
+            background: transparent; border: 2px solid var(--accent); color: var(--primary); padding: 10px 24px;
+            border-radius: 30px; cursor: pointer; font-weight: bold; font-size: 1rem; transition: all 0.3s ease; outline: none;
+        }
+        .filter-btn:hover, .filter-btn.active { background: var(--accent); color: white; box-shadow: 0 5px 15px rgba(202, 138, 4, 0.3); }
+        
+        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .gallery-item { border-radius: 12px; overflow: hidden; transition: all 0.4s ease; transform: scale(1); opacity: 1; }
+        .gallery-item.hide { display: none; }
+        .gallery img { width: 100%; height: 300px; object-fit: cover; display: block; cursor: pointer; transition: all 0.5s ease; filter: grayscale(10%); }
+        .gallery img:hover { transform: scale(1.05); filter: grayscale(0%); box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
+
+        .view-all-container { text-align: center; margin-top: 40px; display: none; }
+        .view-all-btn { 
+            background: transparent; color: var(--accent); border: 2px solid var(--accent); padding: 12px 35px; 
+            font-size: 1.1rem; font-weight: bold; border-radius: 30px; cursor: pointer; transition: all 0.3s;
+        }
+        .view-all-btn:hover { background: var(--accent); color: white; }
+
+        /* --- REVIEWS --- */
+        .reviews { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 60px; }
+        .review-card { background: white; padding: 30px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); position: relative; }
+        .stars { color: var(--accent); font-size: 1.2rem; margin-bottom: 15px; }
+        .review-text { font-style: italic; color: #475569; margin-bottom: 20px; line-height: 1.6; }
+        .review-author { font-weight: bold; color: var(--primary); }
+        .review-card::before { content: "❝"; font-size: 4rem; color: #f1f5f9; position: absolute; top: 10px; right: 20px; font-family: serif; }
+        .write-review-container { text-align: center; margin-top: 40px; }
+
+        /* --- FAQ --- */
+        .faq-section { background-color: white; }
+        .faq-container { max-width: 800px; margin: 40px auto 0; }
+        details { background: var(--bg-light); border-radius: 12px; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); overflow: hidden; transition: all 0.3s; border: 1px solid #e2e8f0; }
+        summary { padding: 20px; font-weight: bold; color: var(--primary); cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; font-size: 1.1rem; }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: '+'; font-size: 1.5rem; color: var(--accent); transition: transform 0.3s; }
+        details[open] summary::after { transform: rotate(45deg); }
+        details[open] summary { border-bottom: 1px solid #e2e8f0; }
+        .faq-content { padding: 20px; color: #64748b; line-height: 1.6; }
+
+        /* --- CONTACT & FORMS --- */
+        .contact-wrapper {
+            background: white; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            max-width: 1000px; margin: auto; display: flex; flex-wrap: wrap; overflow: hidden; margin-top: 60px;
+        }
+        .contact-info { background-color: var(--primary); color: white; padding: 50px; flex: 1; min-width: 300px; position: relative; }
+        .contact-info::after { content: ''; position: absolute; bottom: 0; right: 0; width: 150px; height: 150px; background: radial-gradient(circle, rgba(202,138,4,0.2) 0%, transparent 70%); border-radius: 50%; z-index: 0; }
+        .contact-info > * { position: relative; z-index: 1; }
+        .contact-info h3 { color: var(--accent); font-size: 2rem; margin-top: 0; margin-bottom: 30px; }
+        .contact-info p { font-size: 1.1rem; line-height: 1.8; margin-bottom: 20px; color: #cbd5e1; }
+        .contact-info a { color: white; text-decoration: none; transition: 0.3s; }
+        .contact-info a:hover { color: var(--accent); }
+        
+        /* Map Container Style */
+        .map-container { margin-top: 40px; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .map-container iframe { width: 100%; height: 220px; border: none; display: block; }
+
+        .contact-form-container { padding: 50px; flex: 1.5; min-width: 300px; }
+        .form-row { display: flex; gap: 20px; }
+        .form-row .form-group { flex: 1; }
+        .form-group { margin-bottom: 25px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--primary); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;}
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%; padding: 15px; border: 2px solid #e2e8f0; border-radius: 8px; box-sizing: border-box; transition: all 0.3s; font-family: inherit; background-color: #f8fafc;
+        }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--accent); outline: none; background-color: white; box-shadow: 0 0 0 4px rgba(202, 138, 4, 0.1); }
+        .form-group textarea { height: 120px; resize: vertical; }
+        button[type="submit"] {
+            background-color: var(--accent); color: white; padding: 18px 24px; border: none; border-radius: 8px;
+            cursor: pointer; width: 100%; font-size: 1.1rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s;
+        }
+        button[type="submit"]:hover { background-color: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(202, 138, 4, 0.2); }
+
+        footer { background-color: #020617; color: #64748b; text-align: center; padding: 30px 0; font-size: 0.9rem; }
+
+        /* --- BULLETPROOF MODALS (Lightbox & Review) --- */
+        .modal { 
+            display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100vw; height: 100vh; 
+            background: rgba(0,0,0,0.95); justify-content: center; align-items: center; backdrop-filter: blur(5px); 
+        }
+        .modal-content { background: white; padding: 40px; border-radius: 16px; max-width: 500px; width: 90%; position: relative; animation: zoomIn 0.3s ease-out; }
+        .modal-content h3 { margin-top: 0; color: var(--primary); font-size: 1.8rem; margin-bottom: 20px;}
+        .close-btn { position: absolute; top: 20px; right: 30px; color: #64748b; font-size: 40px; cursor: pointer; transition: 0.3s; line-height: 1; }
+        .close-btn:hover { color: var(--accent); }
+        
+        #lightbox img { max-width: 90%; max-height: 90vh; border-radius: 8px; animation: zoomIn 0.3s ease-out; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
+        #lightbox .close-btn { color: white; right: 40px; top: 30px; position: fixed; }
+        #lightbox .close-btn:hover { color: var(--accent); transform: scale(1.1); }
+
+        /* ANIMATIONS */
+        .scroll-fade { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .scroll-fade.visible { opacity: 1; transform: translateY(0); }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes zoomIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        
+        @media (max-width: 768px) {
+            .hero h2 { font-size: 3rem; }
+            .form-row { flex-direction: column; gap: 0; }
+            nav ul { display: none; } 
+        }
+    </style>
+</head>
+<body>
+
+    <header id="main-header">
+        <div class="nav-container">
+            <h1 class="logo">Spree<span>residence</span></h1>
+            <nav>
+                <ul>
+                    <li><a href="#about" data-i18n="nav_about">About</a></li>
+                    <li><a href="#gallery" data-i18n="nav_gallery">Gallery</a></li>
+                    <li><a href="#reviews" data-i18n="nav_reviews">Reviews</a></li>
+                    <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+                </ul>
+                <select class="lang-selector" id="lang-switcher">
+                    <option value="en">EN</option>
+                    <option value="de">DE</option>
+                    <option value="fr">FR</option>
+                    <option value="ja">JP</option>
+                </select>
+            </nav>
+        </div>
+    </header>
+
+    <div class="hero">
+        <h2 data-i18n="hero_title">Elevate Your Stay</h2>
+        <p data-i18n="hero_subtitle">Experience modern luxury, cozy lofts, and endless entertainment in the heart of Berlin.</p>
+        <a href="#contact" class="btn" data-i18n="hero_btn">Check Availability</a>
+    </div>
+
+    <section id="about">
+        <h2 class="section-title scroll-fade" data-i18n="about_title">The Spreeresidence Experience</h2>
+        <div class="features">
+            <div class="feature-box scroll-fade">
+                <span class="feature-icon">🎮</span>
+                <h3 data-i18n="feat1_title">Entertainment Room</h3>
+                <p data-i18n="feat1_desc">Unwind in our dedicated games room featuring a professional foosball table and an indoor basketball arcade setup.</p>
+            </div>
+            <div class="feature-box scroll-fade" style="transition-delay: 0.1s;">
+                <span class="feature-icon">🍳</span>
+                <h3 data-i18n="feat2_title">Modern Kitchenette</h3>
+                <p data-i18n="feat2_desc">A fully equipped compact kitchen boasting sleek marble-style countertops, a premium coffee maker, and modern appliances.</p>
+            </div>
+            <div class="feature-box scroll-fade" style="transition-delay: 0.2s;">
+                <span class="feature-icon">🛏️</span>
+                <h3 data-i18n="feat3_title">Cozy Sleeping Lofts</h3>
+                <p data-i18n="feat3_desc">Smartly designed elevated loft beds providing a unique, incredibly comfortable, and private sleeping experience.</p>
+            </div>
+            <div class="feature-box scroll-fade" style="transition-delay: 0.3s;">
+                <span class="feature-icon">🚿</span>
+                <h3 data-i18n="feat4_title">Elegant Bathrooms</h3>
+                <p data-i18n="feat4_desc">Step into pristine, spa-like modern bathrooms featuring glass walk-in rain showers and premium LED vanity mirrors.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="gallery-section">
+        <h2 class="section-title scroll-fade" data-i18n="gallery_title">Take a Tour</h2>
+        
+        <div class="gallery-filters scroll-fade">
+            <button class="filter-btn active" data-filter="all" data-i18n="filt_all">All Photos</button>
+            <button class="filter-btn" data-filter="kitchen" data-i18n="filt_kitchen">Kitchen & Dining</button>
+            <button class="filter-btn" data-filter="bedroom" data-i18n="filt_bed">Bedroom & Loft</button>
+            <button class="filter-btn" data-filter="bathroom" data-i18n="filt_bath">Bathroom</button>
+            <button class="filter-btn" data-filter="lounge" data-i18n="filt_lounge">Games & Lounge</button>
+        </div>
+
+        <div class="gallery scroll-fade">
+            <div class="gallery-item" data-category="kitchen"><img src="images/DSC05970-HDR.jpg" alt="Kitchenette Overview" onclick="openLightbox(this.src)"></div>
+            <div class="gallery-item" data-category="kitchen"><img src="images/DSC05935-HDR.jpg" alt="Dining Table" onclick="openLightbox(this.src)"></div>
+            <div class="gallery-item" data-category="lounge"><img src="images/DSC05991-HDR.jpg" alt="Games Room" onclick="openLightbox(this.src)"></div>
+            <div class="gallery-item" data-category="bedroom"><img src="images/DSC05943-HDR.jpg" alt="Bed behind Partition" onclick="openLightbox(this.src)"></div>
+            <div class="gallery-item" data-category="bathroom"><img src="images/DSC05978-HDR.jpg" alt="Bathroom Sink" onclick="openLightbox(this.src)"></div>
+            <div class="gallery-item" data-category="kitchen"><img src="images/DSC05964-HDR.jpg" alt="Dining Details" onclick="openLightbox(this.src)"></div>
+            <div class="gallery-item" data-category="kitchen"><img src="images/DSC05928-HDR.jpg" alt="Dining and Partition" onclick="openLightbox(this.src)"></div>
+            <div class="gallery-item" data-category="kitchen"><img src="images/DSC05974.jpg" alt="Kitchen Platter" onclick="openLightbox(this.src)"></div>
+            <div class="gallery-item" data-category="kitchen"><img src="images/DSC05987-HDR.jpg" alt="Kitchen Appliances" onclick="openLightbox(this.src)"></div>
+            <div class="gallery-item" data-category="bedroom"><img src="images/DSC05950-HDR.jpg" alt="Bed with TV" onclick="openLightbox(this.src)"></div>
+            <div class="gallery-item" data-category="bedroom"><img src="images/DSC05984-HDR.jpg" alt="Loft Bed" onclick="openLightbox(this.src)"></div>
+            <div class="gallery-item" data-category="bathroom"><img src="images/DSC05981-HDR.jpg" alt="Walk-in Shower" onclick="openLightbox(this.src)"></div>
+            <div class="gallery-item" data-category="lounge"><img src="images/DSC06000-HDR.jpg" alt="Basketball Arcade" onclick="openLightbox(this.src)"></div>
+            <div class="gallery-item" data-category="lounge"><img src="images/DSC05997-HDR.jpg" alt="Lounge Couch" onclick="openLightbox(this.src)"></div>
+        </div>
+
+        <div class="view-all-container scroll-fade">
+            <button id="view-all-btn" class="view-all-btn" data-i18n="view_all_btn">View All Photos</button>
+        </div>
+    </section>
+
+    <section id="reviews">
+        <h2 class="section-title scroll-fade" data-i18n="reviews_title">Guest Experiences</h2>
+        <div class="reviews">
+            <div class="review-card scroll-fade">
+                <div class="stars">★★★★★</div>
+                <p class="review-text" data-i18n="rev1_text">"Absolutely stunning place! The games room kept us entertained all night, and the loft beds were incredibly cozy. Perfect location in Berlin."</p>
+                <p class="review-author">— Sarah M., UK</p>
+            </div>
+            <div class="review-card scroll-fade" style="transition-delay: 0.1s;">
+                <div class="stars">★★★★★</div>
+                <p class="review-text" data-i18n="rev2_text">"A beautifully designed space. The attention to detail in the bathroom and kitchen made it feel like a 5-star hotel. Highly recommend!"</p>
+                <p class="review-author">— Thomas K., Germany</p>
+            </div>
+            <div class="review-card scroll-fade" style="transition-delay: 0.2s;">
+                <div class="stars">★★★★★</div>
+                <p class="review-text" data-i18n="rev3_text">"Seamless communication and a fantastic stay. The property is exactly as pictured, if not better. We will definitely be coming back."</p>
+                <p class="review-author">— Elena R., Spain</p>
+            </div>
+        </div>
+        <div class="write-review-container scroll-fade">
+            <button class="btn" style="padding: 12px 30px; font-size: 1rem;" data-i18n="write_review_btn" onclick="openReviewModal()">Write a Review</button>
+        </div>
+    </section>
+
+    <section id="faq" class="faq-section">
+        <h2 class="section-title scroll-fade" data-i18n="faq_title">Frequently Asked Questions</h2>
+        <div class="faq-container scroll-fade">
+            <details>
+                <summary data-i18n="faq1_q">What time is check-in and check-out?</summary>
+                <div class="faq-content" data-i18n="faq1_a">Standard check-in is at 3:00 PM and check-out is by 11:00 AM. If you need special arrangements, please let us know in your booking inquiry.</div>
+            </details>
+            <details>
+                <summary data-i18n="faq2_q">Is parking available on-site?</summary>
+                <div class="faq-content" data-i18n="faq2_a">There is public street parking available near the residence. We can also recommend nearby secure parking garages upon request.</div>
+            </details>
+            <details>
+                <summary data-i18n="faq3_q">Are pets allowed?</summary>
+                <div class="faq-content" data-i18n="faq3_a">While we love animals, to maintain the pristine condition of our luxury lofts and accommodate guests with allergies, we do not allow pets.</div>
+            </details>
+            <details>
+                <summary data-i18n="faq4_q">Is the Wi-Fi fast enough for remote work?</summary>
+                <div class="faq-content" data-i18n="faq4_a">Yes! We provide complimentary high-speed fiber internet, perfect for video calls, streaming, and remote working.</div>
+            </details>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title scroll-fade" data-i18n="contact_title">Reserve Your Dates</h2>
+        <div class="contact-wrapper scroll-fade">
+            <div class="contact-info">
+                <h3 data-i18n="contact_subtitle">Let's Connect</h3>
+                <p><strong>Dream Living GmbH</strong><br>Karolingerplatz 12<br>14052 Berlin, Germany</p>
+                <br>
+                <p>📞 <a href="tel:01703251855">01703251855</a></p>
+                <p>✉️ <a href="mailto:Na.construct@outlook.de">Na.construct@outlook.de</a></p>
+                
+                <div class="map-container">
+                    <iframe src="https://maps.google.com/maps?q=Karolingerplatz%2012,%2014052%20Berlin&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
+            <div class="contact-form-container">
+                <form action="https://formspree.io/f/xwvyyblo" method="POST">
+                    <div class="form-group">
+                        <label for="name" data-i18n="form_name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" data-i18n="form_email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="checkin" data-i18n="form_checkin">Check-in Date</label>
+                            <input type="date" id="checkin" name="checkin" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="checkout" data-i18n="form_checkout">Check-out Date</label>
+                            <input type="date" id="checkout" name="checkout" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message" data-i18n="form_msg">Special Requests / Message</label>
+                        <textarea id="message" name="message" data-i18n-placeholder="form_placeholder" placeholder="Any specific requirements for your stay?"></textarea>
+                    </div>
+                    <button type="submit" data-i18n="form_btn">Request Booking</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p data-i18n="footer_text">© 2026 Spreeresidence by Dream Living GmbH. All rights reserved.</p>
+    </footer>
+
+    <div id="lightbox" class="modal" onclick="closeLightbox(event)">
+        <span class="close-btn" onclick="forceCloseLightbox()">×</span>
+        <img id="lightbox-img" src="" alt="Enlarged">
+    </div>
+
+    <div id="review-modal" class="modal" onclick="closeReviewModalEvent(event)">
+        <div class="modal-content">
+            <span class="close-btn" onclick="forceCloseReviewModal()">×</span>
+            <h3 data-i18n="review_modal_title">Submit Your Review</h3>
+            <form action="https://formspree.io/f/xwvyyblo" method="POST">
+                <input type="hidden" name="subject" value="New Property Review Submitted">
+                <div class="form-group">
+                    <label data-i18n="form_name">Name</label>
+                    <input type="text" name="reviewer_name" required>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="review_rating">Rating (1-5)</label>
+                    <select name="rating" required>
+                        <option value="5">★★★★★ (5/5)</option>
+                        <option value="4">★★★★☆ (4/5)</option>
+                        <option value="3">★★★☆☆ (3/5)</option>
+                        <option value="2">★★☆☆☆ (2/5)</option>
+                        <option value="1">★☆☆☆☆ (1/5)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="form_msg">Your Experience</label>
+                    <textarea name="review_text" required></textarea>
+                </div>
+                <button type="submit" data-i18n="submit_review_btn">Submit Review</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // --- TRANSLATION DATA ---
+        const translations = {
+            en: {
+                nav_about: "About", nav_gallery: "Gallery", nav_reviews: "Reviews", nav_contact: "Contact",
+                hero_title: "Elevate Your Stay", hero_subtitle: "Experience modern luxury, cozy lofts, and endless entertainment in the heart of Berlin.", hero_btn: "Check Availability",
+                about_title: "The Spreeresidence Experience",
+                feat1_title: "Entertainment Room", feat1_desc: "Unwind in our dedicated games room featuring a professional foosball table and an indoor basketball arcade setup.",
+                feat2_title: "Modern Kitchenette", feat2_desc: "A fully equipped compact kitchen boasting sleek marble-style countertops, a premium coffee maker, and modern appliances.",
+                feat3_title: "Cozy Sleeping Lofts", feat3_desc: "Smartly designed elevated loft beds providing a unique, incredibly comfortable, and private sleeping experience.",
+                feat4_title: "Elegant Bathrooms", feat4_desc: "Step into pristine, spa-like modern bathrooms featuring glass walk-in rain showers and premium LED vanity mirrors.",
+                gallery_title: "Take a Tour", filt_all: "All Photos", filt_kitchen: "Kitchen & Dining", filt_bed: "Bedroom & Loft", filt_bath: "Bathroom", filt_lounge: "Games & Lounge", view_all_btn: "View All Photos",
+                reviews_title: "Guest Experiences", write_review_btn: "Write a Review", review_modal_title: "Submit Your Review", review_rating: "Rating", submit_review_btn: "Submit Review",
+                rev1_text: '"Absolutely stunning place! The games room kept us entertained all night, and the loft beds were incredibly cozy. Perfect location in Berlin."',
+                rev2_text: '"A beautifully designed space. The attention to detail in the bathroom and kitchen made it feel like a 5-star hotel. Highly recommend!"',
+                rev3_text: '"Seamless communication and a fantastic stay. The property is exactly as pictured, if not better. We will definitely be coming back."',
+                faq_title: "Frequently Asked Questions",
+                faq1_q: "What time is check-in and check-out?", faq1_a: "Standard check-in is at 3:00 PM and check-out is by 11:00 AM.",
+                faq2_q: "Is parking available on-site?", faq2_a: "There is public street parking available near the residence.",
+                faq3_q: "Are pets allowed?", faq3_a: "To maintain the pristine condition of our luxury lofts, we do not allow pets.",
+                faq4_q: "Is the Wi-Fi fast enough for remote work?", faq4_a: "Yes! We provide complimentary high-speed fiber internet.",
+                contact_title: "Reserve Your Dates", contact_subtitle: "Let's Connect",
+                form_name: "Full Name", form_email: "Email Address", form_checkin: "Check-in Date", form_checkout: "Check-out Date", form_msg: "Message", form_placeholder: "Any specific requirements for your stay?", form_btn: "Request Booking",
+                footer_text: "© 2026 Spreeresidence by Dream Living GmbH. All rights reserved."
+            },
+            de: {
+                nav_about: "Über uns", nav_gallery: "Galerie", nav_reviews: "Bewertungen", nav_contact: "Kontakt",
+                hero_title: "Erheben Sie Ihren Aufenthalt", hero_subtitle: "Erleben Sie modernen Luxus, gemütliche Lofts und endlose Unterhaltung im Herzen Berlins.", hero_btn: "Verfügbarkeit Prüfen",
+                about_title: "Das Spreeresidence Erlebnis",
+                feat1_title: "Unterhaltungsraum", feat1_desc: "Entspannen Sie in unserem eigenen Spielzimmer mit professionellem Tischkicker und Indoor-Basketball-Arcade.",
+                feat2_title: "Moderne Küchenzeile", feat2_desc: "Voll ausgestattete, kompakte Küche mit eleganten Arbeitsplatten in Marmoroptik, Premium-Kaffeemaschine und modernen Geräten.",
+                feat3_title: "Gemütliche Schlaf-Lofts", feat3_desc: "Raffinierte Hochbetten, die ein einzigartiges, unglaublich komfortables und privates Schlaferlebnis bieten.",
+                feat4_title: "Elegante Badezimmer", feat4_desc: "Treten Sie ein in makellose, moderne Badezimmer mit begehbaren Glas-Regenduschen und hochwertigen LED-Kosmetikspiegeln.",
+                gallery_title: "Machen Sie eine Tour", filt_all: "Alle Fotos", filt_kitchen: "Küche & Esszimmer", filt_bed: "Schlafzimmer & Loft", filt_bath: "Badezimmer", filt_lounge: "Spiele & Lounge", view_all_btn: "Alle Fotos ansehen",
+                reviews_title: "Gästeerfahrungen", write_review_btn: "Bewertung schreiben", review_modal_title: "Reichen Sie Ihre Bewertung ein", review_rating: "Bewertung", submit_review_btn: "Bewertung abschicken",
+                rev1_text: '"Absolut atemberaubender Ort! Das Spielzimmer hat uns die ganze Nacht unterhalten und die Hochbetten waren unglaublich gemütlich."',
+                rev2_text: '"Ein wunderschön gestalteter Raum. Die Liebe zum Detail in Bad und Küche fühlte sich an wie in einem 5-Sterne-Hotel."',
+                rev3_text: '"Reibungslose Kommunikation und ein fantastischer Aufenthalt. Die Unterkunft ist genau wie auf den Bildern."',
+                faq_title: "Häufig gestellte Fragen",
+                faq1_q: "Wann ist Check-in und Check-out?", faq1_a: "Standard-Check-in ist um 15:00 Uhr und Check-out bis 11:00 Uhr.",
+                faq2_q: "Gibt es Parkplätze vor Ort?", faq2_a: "In der Nähe der Residenz gibt es öffentliche Parkplätze an der Straße.",
+                faq3_q: "Sind Haustiere erlaubt?", faq3_a: "Um den tadellosen Zustand unserer Lofts zu erhalten, sind keine Haustiere erlaubt.",
+                faq4_q: "Ist das WLAN schnell genug für Homeoffice?", faq4_a: "Ja! Wir bieten kostenloses Highspeed-Glasfaser-Internet.",
+                contact_title: "Reservieren Sie Ihre Daten", contact_subtitle: "Lassen Sie uns verbinden",
+                form_name: "Vollständiger Name", form_email: "E-Mail-Adresse", form_checkin: "Anreisedatum", form_checkout: "Abreisedatum", form_msg: "Nachricht", form_placeholder: "Besondere Anforderungen für Ihren Aufenthalt?", form_btn: "Buchung anfragen",
+                footer_text: "© 2026 Spreeresidence von Dream Living GmbH. Alle Rechte vorbehalten."
+            },
+            fr: {
+                nav_about: "À propos", nav_gallery: "Galerie", nav_reviews: "Avis", nav_contact: "Contact",
+                hero_title: "Élevez votre séjour", hero_subtitle: "Découvrez le luxe moderne, des lofts confortables et des divertissements au cœur de Berlin.", hero_btn: "Vérifier la disponibilité",
+                about_title: "L'expérience Spreeresidence",
+                feat1_title: "Salle de divertissement", feat1_desc: "Détendez-vous dans notre salle de jeux avec baby-foot professionnel et borne d'arcade de basket-ball.",
+                feat2_title: "Kitchenette moderne", feat2_desc: "Cuisine compacte équipée avec plans de travail effet marbre, machine à café premium et appareils modernes.",
+                feat3_title: "Lofts confortables", feat3_desc: "Lits mezzanines offrant une expérience de sommeil unique et privée.",
+                feat4_title: "Salles de bains élégantes", feat4_desc: "Salles de bains modernes avec douches à l'italienne à effet pluie et miroirs LED.",
+                gallery_title: "Faites un tour", filt_all: "Toutes les photos", filt_kitchen: "Cuisine et Salle à manger", filt_bed: "Chambre et Loft", filt_bath: "Salle de bain", filt_lounge: "Jeux et Salon", view_all_btn: "Voir toutes les photos",
+                reviews_title: "Expériences des invités", write_review_btn: "Écrire un avis", review_modal_title: "Soumettez votre avis", review_rating: "Évaluation", submit_review_btn: "Soumettre",
+                rev1_text: '"Un endroit absolument magnifique ! La salle de jeux nous a divertis toute la nuit et les lits étaient très confortables."',
+                rev2_text: '"Un espace magnifiquement conçu. L\'attention portée aux détails donnait l\'impression d\'être dans un hôtel 5 étoiles."',
+                rev3_text: '"Une communication fluide et un séjour fantastique. La propriété est exactement comme sur les photos."',
+                faq_title: "Questions fréquemment posées",
+                faq1_q: "A quelle heure sont les arrivées et départs ?", faq1_a: "L'enregistrement standard s'effectue à 15h00 et le départ avant 11h00.",
+                faq2_q: "Un parking est-il disponible sur place ?", faq2_a: "Un parking public dans la rue est disponible à proximité de la résidence.",
+                faq3_q: "Les animaux sont-ils autorisés ?", faq3_a: "Afin de maintenir l'état impeccable de nos lofts, nous n'autorisons pas les animaux.",
+                faq4_q: "Le Wi-Fi est-il assez rapide pour le télétravail ?", faq4_a: "Oui ! Nous fournissons une connexion Internet par fibre optique haut débit gratuite.",
+                contact_title: "Réservez vos dates", contact_subtitle: "Connectons-nous",
+                form_name: "Nom complet", form_email: "Adresse e-mail", form_checkin: "Date d'arrivée", form_checkout: "Date de départ", form_msg: "Message", form_placeholder: "Des exigences spécifiques pour votre séjour ?", form_btn: "Demander une réservation",
+                footer_text: "© 2026 Spreeresidence par Dream Living GmbH. Tous droits réservés."
+            },
+            ja: {
+                nav_about: "概要", nav_gallery: "ギャラリー", nav_reviews: "レビュー", nav_contact: "お問い合わせ",
+                hero_title: "滞在をランクアップ", hero_subtitle: "ベルリンの中心部で、モダンなラグジュアリー、居心地の良いロフト、エンターテイメントを体験してください。", hero_btn: "空室状況を確認",
+                about_title: "シュプレーレジデンスの体験",
+                feat1_title: "エンターテインメントルーム", feat1_desc: "プロ仕様のフーズボールテーブルや屋内バスケットボールを備えた専用ゲームルームでリラックスしてください。",
+                feat2_title: "モダンな簡易キッチン", feat2_desc: "大理石調のカウンタートップ、高級コーヒーメーカー、最新家電を備えた設備の整ったキッチン。",
+                feat3_title: "居心地の良いロフト", feat3_desc: "ユニークで快適、そしてプライベートな睡眠体験を提供するスマートなデザインのロフトベッド。",
+                feat4_title: "エレガントなバスルーム", feat4_desc: "ガラス張りのレインシャワーと高級LEDバニティミラーを備えた清潔でモダンなバスルーム。",
+                gallery_title: "ツアーを見る", filt_all: "すべての写真", filt_kitchen: "キッチン＆ダイニング", filt_bed: "ベッドルーム＆ロフト", filt_bath: "バスルーム", filt_lounge: "ゲーム＆ラウンジ", view_all_btn: "すべての写真を見る",
+                reviews_title: "ゲストの体験談", write_review_btn: "レビューを書く", review_modal_title: "レビューを送信", review_rating: "評価", submit_review_btn: "送信する",
+                rev1_text: '"絶対に素晴らしい場所です！ゲームルームで一晩中楽しめました。ベルリンでの完璧なロケーションです。"',
+                rev2_text: '"美しくデザインされた空間。バスルームやキッチンの細部へのこだわりは、5つ星ホテルのようでした。"',
+                rev3_text: '"スムーズなコミュニケーションと素晴らしい滞在。物件は写真通り、いやそれ以上です。"',
+                faq_title: "よくある質問",
+                faq1_q: "チェックインとチェックアウトの時間は？", faq1_a: "標準的なチェックインは午後3時、チェックアウトは午前11時までです。",
+                faq2_q: "敷地内に駐車場はありますか？", faq2_a: "レジデンスの近くに公共の路上駐車場があります。",
+                faq3_q: "ペットは同伴できますか？", faq3_a: "ラグジュアリーロフトの清潔な状態を維持するため、ペットの同伴はお断りしております。",
+                faq4_q: "Wi-Fiはリモートワークに十分な速さですか？", faq4_a: "はい！無料の高速光ファイバーインターネットを提供しています。",
+                contact_title: "日程を予約する", contact_subtitle: "つながりましょう",
+                form_name: "氏名", form_email: "メールアドレス", form_checkin: "チェックイン日", form_checkout: "チェックアウト日", form_msg: "メッセージ", form_placeholder: "滞在に関する特別なご要望はありますか？", form_btn: "予約をリクエスト",
+                footer_text: "© 2026 Spreeresidence by Dream Living GmbH. 無断複写・転載を禁じます。"
+            }
+        };
+
+        // --- LANGUAGE SWITCHER ---
+        const langSwitcher = document.getElementById('lang-switcher');
+        langSwitcher.addEventListener('change', (e) => {
+            const lang = e.target.value;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if(translations[lang][key]) el.innerText = translations[lang][key];
+            });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if(translations[lang][key]) el.setAttribute('placeholder', translations[lang][key]);
+            });
+            document.documentElement.lang = lang;
+        });
+
+        // --- GALLERY FILTER & VIEW ALL LOGIC ---
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const viewAllContainer = document.querySelector('.view-all-container');
+        const viewAllBtn = document.getElementById('view-all-btn');
+        
+        let currentFilter = 'all';
+        let isShowingAllPhotos = false;
+
+        function updateGallery() {
+            let visibleCount = 0;
+            
+            galleryItems.forEach(item => {
+                const itemCategory = item.getAttribute('data-category');
+                const matchesFilter = (currentFilter === 'all' || itemCategory === currentFilter);
+                
+                if (matchesFilter) {
+                    if (currentFilter === 'all' && !isShowingAllPhotos) {
+                        if (visibleCount < 6) {
+                            item.classList.remove('hide');
+                        } else {
+                            item.classList.add('hide');
+                        }
+                    } else {
+                        item.classList.remove('hide');
+                    }
+                    visibleCount++;
+                } else {
+                    item.classList.add('hide');
+                }
+            });
+
+            if (currentFilter === 'all' && !isShowingAllPhotos && visibleCount > 6) {
+                viewAllContainer.style.display = 'block';
+            } else {
+                viewAllContainer.style.display = 'none';
+            }
+        }
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.getAttribute('data-filter');
+                isShowingAllPhotos = false; 
+                updateGallery();
+            });
+        });
+
+        viewAllBtn.addEventListener('click', () => {
+            isShowingAllPhotos = true;
+            updateGallery();
+        });
+
+        updateGallery();
+
+        // --- INTERACTIVITY & HEADER ---
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
+        });
+
+        // --- 100% BULLETPROOF MODAL LOGIC ---
+        // 1. Lightbox Functions
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').style.display = 'flex';
+            document.body.style.overflow = 'hidden'; 
+        }
+        
+        function forceCloseLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+            document.body.style.overflow = 'auto'; 
+        }
+
+        function closeLightbox(e) {
+            if (e.target.id === 'lightbox' || e.target.className === 'close-btn') {
+                forceCloseLightbox();
+            }
+        }
+
+        // 2. Review Modal Functions
+        function openReviewModal() {
+            document.getElementById('review-modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function forceCloseReviewModal() {
+            document.getElementById('review-modal').style.display = 'none';
+            document.body.style.overflow = 'auto'; 
+        }
+
+        function closeReviewModalEvent(e) {
+            if (e.target.id === 'review-modal') {
+                forceCloseReviewModal();
+            }
+        }
+
+        // --- SCROLL ANIMATIONS ---
+        const fadeElements = document.querySelectorAll('.scroll-fade');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+            });
+        }, { threshold: 0.1 });
+        fadeElements.forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
