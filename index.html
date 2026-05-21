@@ -3,219 +3,270 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spreeresidence | Luxury Berlin Apartments</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Spreeresidence | Premium Berlin Stays</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
     <style>
-        /* --- CORE STYLES & VARIABLES --- */
+        /* --- WARM MINIMALIST VARIABLES --- */
         :root {
-            --brand: #e11d48; 
-            --brand-hover: #be123c;
-            --dark: #0f172a;
-            --text: #334155;
-            --text-light: #64748b;
-            --bg: #f8fafc;
-            --border: #e2e8f0;
-            --glass: rgba(255, 255, 255, 0.85);
+            --brand: #C86144; 
+            --brand-hover: #A64B32;
+            --dark: #272522; 
+            --text: #4A4642; 
+            --text-light: #8A847D;
+            --bg: #F9F8F5; 
+            --surface: #FFFFFF;
+            --border: #E8E3DD;
+            --icon-bg: #7C6044; 
+            --icon-color: #FFFFFF;
         }
         * { box-sizing: border-box; }
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; padding: 0; color: var(--text); background-color: var(--bg); -webkit-font-smoothing: antialiased;
+            font-family: 'DM Sans', sans-serif; margin: 0; padding: 0; color: var(--text); background-color: var(--bg); -webkit-font-smoothing: antialiased;
         }
-        h1, h2, h3, .serif { font-family: 'Playfair Display', serif; color: var(--dark); }
+        h1, h2, h3, h4, .heading-font { font-family: 'Outfit', sans-serif; color: var(--dark); font-weight: 700; letter-spacing: -0.5px; }
 
         /* --- HEADER & NAVIGATION --- */
         header {
-            position: fixed; top: 0; width: 100%; background: var(--glass); backdrop-filter: blur(12px); z-index: 100;
-            border-bottom: 1px solid rgba(226, 232, 240, 0.5); padding: 15px 5vw; display: flex; justify-content: space-between; align-items: center;
-            transition: all 0.3s ease; box-shadow: 0 4px 30px rgba(0,0,0,0.03);
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            padding: 20px 5vw; display: flex; justify-content: space-between; align-items: center;
+            /* OPTIMIZED TRANSITION */
+            transition: background-color 0.4s, padding 0.4s, border-color 0.4s;
+            background: rgba(249, 248, 245, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(232, 227, 221, 0.6);
+            /* HARDWARE ACCELERATION */
+            transform: translateZ(0); will-change: background-color, padding;
         }
-        .logo { font-size: 1.8rem; font-weight: 800; color: var(--brand); margin: 0; cursor: pointer; transition: 0.3s; }
+        header.scrolled {
+            background: rgba(39, 37, 34, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding: 15px 5vw;
+        }
+        .logo { font-size: 1.8rem; font-weight: 800; color: var(--brand); margin: 0; cursor: pointer; transition: opacity 0.3s; letter-spacing: -1px; }
         .logo:hover { opacity: 0.8; }
-        .nav-actions { display: flex; align-items: center; gap: 25px; }
+        
+        .nav-actions { display: flex; align-items: center; gap: 30px; }
         .lang-select {
-            padding: 8px 16px; border-radius: 30px; border: 2px solid var(--border); background: white;
-            font-family: inherit; font-weight: 700; cursor: pointer; outline: none; transition: 0.3s; color: var(--dark);
+            padding: 8px 18px; border-radius: 50px; border: 1px solid var(--border); background: var(--surface);
+            font-family: inherit; font-weight: 600; cursor: pointer; outline: none; transition: border-color 0.3s, color 0.3s, box-shadow 0.3s; color: var(--dark);
         }
-        .lang-select:hover { border-color: var(--brand); color: var(--brand); box-shadow: 0 4px 10px rgba(225, 29, 72, 0.1); }
-        .contact-link { text-decoration: none; color: var(--dark); font-weight: 700; transition: 0.3s; }
-        .contact-link:hover { color: var(--brand); }
+        header.scrolled .lang-select { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: white; }
+        .lang-select:hover { border-color: var(--brand); color: var(--brand); box-shadow: 0 4px 15px rgba(200, 97, 68, 0.08); }
+        
+        .contact-link { text-decoration: none; color: var(--dark); font-weight: 600; transition: color 0.3s; position: relative; }
+        header.scrolled .contact-link { color: white; }
+        .contact-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0; background-color: var(--brand); transition: width 0.3s; }
+        .contact-link:hover::after { width: 100%; }
 
         /* --- IMMERSIVE HERO SECTION --- */
         .hero-parallax {
-            height: 80vh; min-height: 600px;
-            background: linear-gradient(rgba(15, 23, 42, 0.3), rgba(15, 23, 42, 0.8)), url('images/DSC05935-HDR.jpg') center/cover fixed;
+            height: 85vh; min-height: 600px;
+            background: linear-gradient(rgba(39, 37, 34, 0.2), rgba(39, 37, 34, 0.7)), url('images/DSC05935-HDR.jpg') center/cover fixed;
             display: flex; align-items: center; justify-content: center; text-align: center; color: white;
-            padding: 0 5vw; position: relative;
+            padding: 0 5vw; position: relative; overflow: hidden;
+            /* OPTIMIZATION */
+            will-change: transform;
         }
-        .hero-content { max-width: 900px; animation: fadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
-        .hero-content h1 { font-size: 4.5rem; margin: 0 0 20px; line-height: 1.1; color: white; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .hero-content p { font-size: 1.4rem; color: #e2e8f0; margin: 0 0 40px; font-weight: 500; text-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .hero-content { max-width: 900px; animation: slideUpFade 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; will-change: transform, opacity; }
+        .hero-content h1 { font-size: 4.8rem; margin: 0 0 20px; line-height: 1.05; color: white; text-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .hero-content p { font-size: 1.3rem; color: #F0EBE1; margin: 0 0 40px; font-weight: 400; text-shadow: 0 5px 15px rgba(0,0,0,0.3); }
         .explore-btn {
-            background: var(--brand); color: white; text-decoration: none; padding: 18px 40px; font-size: 1.1rem;
-            font-weight: 800; border-radius: 50px; transition: 0.4s; display: inline-block;
-            box-shadow: 0 10px 25px rgba(225, 29, 72, 0.4); text-transform: uppercase; letter-spacing: 1px;
+            background: var(--brand); color: white; text-decoration: none; padding: 18px 45px; font-size: 1.1rem;
+            font-weight: 700; border-radius: 50px; transition: transform 0.4s, background-color 0.4s, box-shadow 0.4s; display: inline-block;
+            box-shadow: 0 10px 25px rgba(200, 97, 68, 0.3); letter-spacing: 0.5px; will-change: transform;
         }
-        .explore-btn:hover { background: var(--brand-hover); transform: translateY(-5px); box-shadow: 0 15px 35px rgba(225, 29, 72, 0.6); }
+        .explore-btn:hover { background: var(--brand-hover); transform: translateY(-5px) scale(1.02); box-shadow: 0 20px 40px rgba(200, 97, 68, 0.4); }
 
-        /* --- ABOUT US (3D SECTION) --- */
-        .about-section { padding: 120px 5vw; background: white; overflow: hidden; perspective: 1200px; }
-        .about-grid { max-width: 1400px; margin: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-        .about-content h2 { font-size: 3.5rem; margin-bottom: 30px; line-height: 1.1; }
-        .about-content p { font-size: 1.15rem; color: var(--text-light); line-height: 1.8; margin-bottom: 20px; }
-        
-        .about-visual { position: relative; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-        .about-visual:hover { transform: rotateY(-8deg) rotateX(4deg); }
-        .about-img { width: 100%; border-radius: 24px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); transform: translateZ(0); transition: 0.6s; object-fit: cover; height: 500px;}
-        .about-visual:hover .about-img { transform: translateZ(20px); box-shadow: -20px 40px 80px rgba(0,0,0,0.2); }
-        
-        .about-badge { 
-            position: absolute; bottom: -30px; left: -30px; background: var(--dark); color: white; 
-            padding: 25px 40px; border-radius: 20px; font-weight: 800; font-size: 1.3rem; 
-            transform: translateZ(60px); box-shadow: 0 20px 40px rgba(15, 23, 42, 0.4); 
-            border: 1px solid rgba(255,255,255,0.1); transition: 0.6s;
-        }
-        .about-visual:hover .about-badge { transform: translateZ(90px) translateY(-10px); background: var(--brand); box-shadow: 0 30px 50px rgba(225, 29, 72, 0.4); border-color: transparent;}
-
-        /* --- PROPERTY GRID (3D EFFECTS) --- */
-        .container { padding: 40px 5vw 100px; max-width: 1600px; margin: auto; }
+        /* --- PROPERTY GRID --- */
+        .container { padding: 80px 5vw 100px; max-width: 1600px; margin: auto; }
         .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header h2 { font-size: 3rem; margin: 0; }
-        .section-header p { color: var(--text-light); font-size: 1.2rem; margin-top: 10px; }
+        .section-header h2 { font-size: 3.2rem; margin: 0; }
+        .section-header p { color: var(--text-light); font-size: 1.2rem; margin-top: 15px; font-weight: 400; }
         
-        .property-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 40px; perspective: 1200px; }
+        .property-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 40px; perspective: 1000px; }
         
-        /* 3D Property Card Hover */
         .property-card { 
-            cursor: pointer; border-radius: 20px; background: white; padding: 15px; 
-            opacity: 0; transform: translateY(40px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.02);
-            transform-style: preserve-3d; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer; border-radius: 24px; background: var(--surface); padding: 15px; 
+            /* OPTIMIZED TRANSITIONS & HARDWARE ACCEL */
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s; 
+            transform-style: preserve-3d; backface-visibility: hidden;
+            box-shadow: 0 10px 30px rgba(39, 37, 34, 0.03); border: 1px solid var(--border);
+            will-change: transform, box-shadow;
         }
-        .property-card.visible { opacity: 1; transform: translateY(0); }
-        
         .property-card:hover { 
-            transform: translateY(-15px) rotateX(3deg) rotateY(-3deg) scale(1.02); 
-            box-shadow: -15px 30px 60px rgba(0,0,0,0.1); border-color: var(--border); 
+            transform: translateY(-10px) rotateX(2deg) rotateY(-2deg) scale(1.02); 
+            box-shadow: -10px 25px 50px rgba(39, 37, 34, 0.08); border-color: transparent;
         }
         
-        .img-wrap { width: 100%; aspect-ratio: 4/3; overflow: hidden; border-radius: 16px; margin-bottom: 20px; position: relative; transition: 0.5s; }
-        .property-card:hover .img-wrap { transform: translateZ(30px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
-        .img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-        .property-card:hover .img-wrap img { transform: scale(1.1); }
+        .img-wrap { width: 100%; aspect-ratio: 4/3; overflow: hidden; border-radius: 18px; margin-bottom: 25px; position: relative; transition: transform 0.5s, box-shadow 0.5s; will-change: transform; }
+        .property-card:hover .img-wrap { transform: translateZ(20px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform; }
+        .property-card:hover .img-wrap img { transform: scale(1.06); }
         
-        .badge { position: absolute; top: 15px; left: 15px; background: rgba(255,255,255,0.95); backdrop-filter: blur(5px); padding: 8px 16px; border-radius: 30px; font-weight: 800; font-size: 0.8rem; color: var(--dark); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .badge { position: absolute; top: 15px; left: 15px; background: rgba(255,255,255,0.95); backdrop-filter: blur(5px); padding: 8px 16px; border-radius: 30px; font-weight: 700; font-size: 0.8rem; color: var(--dark); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         
-        .card-info { padding: 0 10px 10px; transition: 0.5s; }
-        .property-card:hover .card-info { transform: translateZ(15px); }
-        
-        .card-loc { font-weight: 800; color: var(--dark); font-size: 1.15rem; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; }
-        .card-specs { color: var(--text-light); font-size: 0.95rem; margin-bottom: 8px; font-weight: 500; }
+        .card-info { padding: 0 10px 10px; transition: transform 0.5s; will-change: transform; }
+        .property-card:hover .card-info { transform: translateZ(10px); }
+        .card-loc { font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--dark); font-size: 1.2rem; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .card-specs { color: var(--text-light); font-size: 0.95rem; margin-bottom: 10px; font-weight: 500; }
         .card-title { color: var(--text); font-size: 1.05rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-        /* --- GLOBAL CONTACT SECTION (NO ADDRESS) --- */
-        .contact-section { background: var(--dark); color: white; padding: 100px 5vw; position: relative; overflow: hidden; }
-        .contact-section::before { content: ''; position: absolute; top: -50%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(225,29,72,0.15) 0%, transparent 70%); border-radius: 50%; }
-        .contact-grid { max-width: 1400px; margin: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 1;}
-        .contact-text h2 { font-size: 4rem; color: white; margin-bottom: 20px; line-height: 1.1; }
-        .contact-text p { font-size: 1.2rem; color: #94a3b8; line-height: 1.8; margin-bottom: 40px; }
-        .contact-info-block { display: flex; gap: 20px; margin-bottom: 25px; align-items: center; }
-        .contact-icon { font-size: 2.2rem; background: rgba(255,255,255,0.1); width: 60px; height: 60px; display: flex; justify-content: center; align-items: center; border-radius: 50%; }
+        /* --- FEATURES SECTION --- */
+        .features-section { background-color: var(--surface); padding: 100px 5vw; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .features-header { text-align: center; margin-bottom: 70px; }
+        .features-header h2 { font-size: 3.2rem; margin: 0; color: var(--icon-bg); }
         
-        .form-box { background: white; padding: 50px; border-radius: 24px; color: var(--dark); box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
-        .input-group { position: relative; margin-bottom: 30px; }
+        .features-grid { max-width: 1200px; margin: auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 60px 80px; text-align: center; }
+        .feature-item { display: flex; flex-direction: column; align-items: center; }
+        .f-icon-circle { 
+            width: 100px; height: 100px; background-color: var(--icon-bg); border-radius: 50%; 
+            display: flex; justify-content: center; align-items: center; margin-bottom: 25px;
+            box-shadow: 0 15px 30px rgba(124, 96, 68, 0.2); transition: transform 0.4s, box-shadow 0.4s; will-change: transform;
+        }
+        .feature-item:hover .f-icon-circle { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(124, 96, 68, 0.3); }
+        .f-icon-circle svg { width: 45px; height: 45px; fill: none; stroke: var(--icon-color); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+        .feature-item h3 { font-size: 1.5rem; margin: 0 0 15px; color: var(--icon-bg); }
+        .feature-item p { font-size: 1.05rem; color: var(--text); line-height: 1.6; margin: 0; max-width: 350px; }
+
+        /* --- ABOUT US --- */
+        .about-section { padding: 120px 5vw; background: var(--bg); perspective: 1000px; }
+        .about-grid { max-width: 1400px; margin: auto; display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: center; }
+        .about-content h2 { font-size: 3.5rem; margin-bottom: 30px; line-height: 1.1; }
+        .about-content p { font-size: 1.15rem; color: var(--text-light); line-height: 1.8; margin-bottom: 20px; font-weight: 400; }
+        
+        .about-visual { position: relative; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform; }
+        .about-visual:hover { transform: rotateY(-6deg) rotateX(3deg); }
+        .about-img { width: 100%; border-radius: 30px; box-shadow: 0 20px 50px rgba(39, 37, 34, 0.1); object-fit: cover; height: 550px; transform: translateZ(0); transition: transform 0.6s, box-shadow 0.6s; will-change: transform; }
+        .about-visual:hover .about-img { transform: translateZ(20px); box-shadow: -20px 30px 60px rgba(39, 37, 34, 0.2); }
+        .about-badge { 
+            position: absolute; bottom: -30px; left: -30px; background: var(--brand); color: white; 
+            padding: 25px 40px; border-radius: 24px; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.3rem; 
+            transform: translateZ(60px); box-shadow: 0 20px 40px rgba(200, 97, 68, 0.3); transition: transform 0.6s, background-color 0.6s, border-color 0.6s; border: 1px solid rgba(255,255,255,0.1); will-change: transform;
+        }
+        .about-visual:hover .about-badge { transform: translateZ(90px) translateY(-10px); }
+
+        /* --- GLOBAL CONTACT SECTION --- */
+        .contact-section { background: var(--dark); color: white; padding: 120px 5vw; position: relative; overflow: hidden; transform: translateZ(0); }
+        .contact-grid { max-width: 1400px; margin: auto; display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 1;}
+        .contact-text h2 { font-size: 4rem; color: white; margin-bottom: 25px; line-height: 1.1; }
+        .contact-text p { font-size: 1.2rem; color: #D1CDC5; line-height: 1.8; margin-bottom: 50px; font-weight: 400; }
+        .contact-info-block { display: flex; gap: 20px; margin-bottom: 30px; align-items: center; }
+        .contact-icon { font-size: 1.8rem; background: rgba(255,255,255,0.05); width: 65px; height: 65px; display: flex; justify-content: center; align-items: center; border-radius: 50%; color: var(--brand); }
+        
+        .form-box { background: var(--surface); padding: 50px; border-radius: 30px; color: var(--dark); box-shadow: 0 30px 60px rgba(0,0,0,0.3); }
+        .input-group { position: relative; margin-bottom: 35px; }
         .input-group input, .input-group textarea {
             width: 100%; padding: 15px 15px 15px 0; border: none; border-bottom: 2px solid var(--border);
-            font-family: inherit; font-size: 1.05rem; background: transparent; outline: none; transition: 0.3s;
+            font-family: inherit; font-size: 1.05rem; background: transparent; outline: none; transition: border-color 0.3s; color: var(--dark);
         }
         .input-group label {
-            position: absolute; left: 0; top: 15px; color: var(--text-light); transition: 0.3s; pointer-events: none; font-weight: 500;
+            position: absolute; left: 0; top: 15px; color: var(--text-light); transition: top 0.3s, font-size 0.3s, color 0.3s; pointer-events: none; font-weight: 500;
         }
         .input-group input:focus ~ label, .input-group input:valid ~ label,
         .input-group textarea:focus ~ label, .input-group textarea:valid ~ label {
-            top: -12px; font-size: 0.85rem; color: var(--brand); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;
+            top: -15px; font-size: 0.85rem; color: var(--brand); font-weight: 700;
         }
         .input-group input:focus, .input-group textarea:focus { border-bottom-color: var(--brand); }
         
         button.btn-primary {
-            background: var(--brand); color: white; border: none; padding: 18px 30px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px;
-            font-weight: 800; border-radius: 50px; cursor: pointer; transition: 0.3s; width: 100%; box-shadow: 0 10px 20px rgba(225, 29, 72, 0.2);
+            background: var(--brand); color: white; border: none; padding: 20px 30px; font-size: 1.1rem;
+            font-weight: 700; border-radius: 50px; cursor: pointer; transition: transform 0.4s, background-color 0.4s, box-shadow 0.4s; width: 100%; box-shadow: 0 10px 20px rgba(200, 97, 68, 0.2); will-change: transform;
         }
-        button.btn-primary:hover { background: var(--brand-hover); transform: translateY(-3px); box-shadow: 0 15px 30px rgba(225, 29, 72, 0.4); }
+        button.btn-primary:hover { background: var(--brand-hover); transform: translateY(-3px) scale(1.01); box-shadow: 0 15px 30px rgba(200, 97, 68, 0.3); }
 
-        /* --- DYNAMIC MODAL (APP-LIKE) --- */
+        /* --- DYNAMIC MODAL --- */
         .modal {
             display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: white; z-index: 2000; overflow-y: auto; padding-bottom: 100px;
-            animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            background: var(--surface); z-index: 2000; overflow-y: auto; padding-bottom: 100px; transform: translateZ(0);
         }
+        .modal.active { display: block; animation: modalEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        
         .modal-nav {
-            position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(15px);
-            padding: 20px 5vw; z-index: 2010; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; background: rgba(249, 248, 245, 0.95); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            padding: 20px 5vw; z-index: 2010; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; transform: translateZ(0);
         }
-        .close-btn { background: var(--bg); border: 1px solid var(--border); width: 45px; height: 45px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; }
+        .close-btn { background: var(--bg); border: 1px solid var(--border); width: 45px; height: 45px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; transition: transform 0.3s, background-color 0.3s; display: flex; justify-content: center; align-items: center; color: var(--dark); will-change: transform;}
         .close-btn:hover { background: var(--border); transform: scale(1.05); }
 
-        .modal-content { max-width: 1300px; margin: 40px auto; padding: 0 5vw; display: grid; grid-template-columns: 1.8fr 1fr; gap: 80px; }
+        .modal-content { max-width: 1300px; margin: 50px auto; padding: 0 5vw; display: grid; grid-template-columns: 1.8fr 1fr; gap: 80px; }
         
-        /* 2-Image Gallery */
-        .modal-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 40px; }
-        .modal-gallery img { width: 100%; height: 450px; object-fit: cover; border-radius: 20px; transition: 0.4s; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .modal-gallery img:hover { filter: brightness(0.9); transform: scale(1.01); }
+        /* MULTI-IMAGE GALLERY STYLES */
+        .modal-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; margin-bottom: 50px; }
+        .gallery-image-wrapper { width: 100%; height: 320px; position: relative; border-radius: 16px; overflow: hidden; transform: translateZ(0);}
+        .gallery-image-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s, filter 0.4s; cursor: pointer; display: block; will-change: transform;}
+        .gallery-image-wrapper img:hover { filter: brightness(0.9); transform: scale(1.03); }
         
-        .m-title { font-size: 3rem; margin: 0 0 15px; line-height: 1.1; }
-        .m-specs { font-size: 1.15rem; font-weight: 600; color: var(--text-light); margin-bottom: 30px; padding-bottom: 30px; border-bottom: 1px solid var(--border); }
+        .hidden-image { display: none !important; }
+        .more-images-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.55); color: white; display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem; font-family: 'Outfit', sans-serif; font-weight: 700; 
+            cursor: pointer; transition: background-color 0.3s; backdrop-filter: blur(2px);
+        }
+        .more-images-overlay:hover { background: rgba(0,0,0,0.7); }
         
-        .section-title { font-size: 1.8rem; margin: 50px 0 25px; }
-        .m-desc-text { font-size: 1.15rem; line-height: 1.8; color: var(--text); margin-bottom: 40px; }
+        .m-title { font-size: 3.2rem; margin: 0 0 15px; line-height: 1.1; }
+        .m-specs { font-size: 1.15rem; font-weight: 500; color: var(--text-light); margin-bottom: 40px; padding-bottom: 40px; border-bottom: 1px solid var(--border); }
         
-        /* Reviews */
-        .reviews-wrapper { display: flex; flex-direction: column; gap: 20px; }
-        .review-box { background: var(--bg); padding: 30px; border-radius: 20px; border: 1px solid var(--border); }
-        .stars { color: #fbbf24; letter-spacing: 3px; margin-bottom: 15px; font-size: 1.2rem; }
-        .rev-text { font-style: italic; margin-bottom: 20px; line-height: 1.7; font-size: 1.1rem; }
-        .rev-author { font-weight: 800; color: var(--dark); font-size: 1.05rem; }
-
-        /* Amenities */
+        .section-title { font-size: 1.8rem; margin: 60px 0 30px; }
+        .m-desc-text { font-size: 1.15rem; line-height: 1.8; color: var(--text); margin-bottom: 40px; font-weight: 400; }
+        
+        /* Rules & Amenities */
         .amenities-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 40px; }
-        .am-item { display: flex; align-items: center; gap: 15px; font-weight: 600; font-size: 1.05rem; }
+        .am-item { display: flex; align-items: center; gap: 15px; font-weight: 500; font-size: 1.05rem; }
         .am-item.no { color: var(--text-light); text-decoration: line-through; opacity: 0.6; }
         
-        /* House Rules */
-        .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; background: var(--bg); padding: 35px; border-radius: 20px; border: 1px solid var(--border); }
+        .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; background: var(--bg); padding: 40px; border-radius: 24px; border: 1px solid var(--border); }
         .rule-item { display: flex; align-items: center; gap: 15px; font-weight: 500; font-size: 1.05rem; }
-        .rule-icon { font-size: 1.5rem; }
+        
+        /* Review Box */
+        .review-box { background: var(--bg); padding: 35px; border-radius: 24px; border: 1px solid var(--border); }
+        .stars { color: var(--brand); letter-spacing: 3px; margin-bottom: 15px; font-size: 1.2rem; }
+        .rev-text { font-style: italic; margin-bottom: 20px; line-height: 1.7; font-size: 1.1rem; }
+        .rev-author { font-weight: 700; color: var(--dark); font-size: 1.05rem; font-family: 'Outfit', sans-serif;}
 
         /* Sticky Booking Widget */
         .widget-track { position: relative; }
         .widget {
-            position: sticky; top: 120px; background: white; border: 1px solid var(--border);
-            border-radius: 24px; padding: 40px 30px; box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+            position: sticky; top: 120px; background: var(--surface); border: 1px solid var(--border);
+            border-radius: 30px; padding: 40px; box-shadow: 0 30px 60px rgba(39, 37, 34, 0.06); transform: translateZ(0);
         }
-        .widget-price { font-size: 1.8rem; font-weight: 800; color: var(--dark); margin-bottom: 25px; font-family: 'Playfair Display', serif;}
-        .date-picker { display: flex; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 25px; }
-        .date-box { flex: 1; padding: 15px; border-right: 1px solid var(--border); background: var(--bg); transition: 0.3s; cursor: pointer; }
-        .date-box:hover { background: white; }
+        .widget-price { font-size: 1.8rem; font-weight: 700; color: var(--dark); margin-bottom: 25px; font-family: 'Outfit', sans-serif;}
+        .date-picker { display: flex; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 25px; }
+        .date-box { flex: 1; padding: 15px 20px; border-right: 1px solid var(--border); background: var(--bg); transition: background-color 0.3s; cursor: pointer; }
+        .date-box:hover { background: var(--surface); }
         .date-box:last-child { border-right: none; }
-        .date-box span { display: block; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--text-light); margin-bottom: 5px; letter-spacing: 0.5px;}
-        .date-box input { width: 100%; border: none; font-family: inherit; font-weight: 700; outline: none; background: transparent; font-size: 1rem; color: var(--dark);}
+        .date-box span { display: block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-light); margin-bottom: 5px; letter-spacing: 0.5px;}
+        .date-box input { width: 100%; border: none; font-family: inherit; font-weight: 500; outline: none; background: transparent; font-size: 1.05rem; color: var(--dark);}
 
-        /* ANIMATIONS */
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes slideUp { from { transform: translateY(50vh); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        /* BULLETPROOF LIGHTBOX */
+        .lightbox-overlay {
+            display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.95); justify-content: center; align-items: center; backdrop-filter: blur(5px); transform: translateZ(0);
+        }
+        .lightbox-overlay img { max-width: 90%; max-height: 90vh; border-radius: 12px; box-shadow: 0 0 40px rgba(0,0,0,0.5); animation: zoomIn 0.3s ease-out; will-change: transform;}
+        .lightbox-close { position: fixed; top: 30px; right: 40px; color: white; font-size: 40px; cursor: pointer; transition: transform 0.3s, color 0.3s; line-height: 1; will-change: transform;}
+        .lightbox-close:hover { color: var(--brand); transform: scale(1.1); }
 
+        /* OPTIMIZED ANIMATIONS */
+        .anim-element { opacity: 0; transform: translateY(40px); transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform, opacity; }
+        .anim-element.visible { opacity: 1; transform: translateY(0); }
+        @keyframes slideUpFade { from { opacity: 0; transform: translateY(60px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes modalEnter { from { opacity: 0; transform: scale(0.98) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        @keyframes zoomIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        /* MOBILE FIXES TO STOP LAG */
         @media (max-width: 900px) {
-            .hero-content h1 { font-size: 3rem; }
-            .about-grid, .modal-content, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
-            .modal-gallery { grid-template-columns: 1fr; }
+            .hero-parallax { background-attachment: scroll; } /* REMOVES MAJOR LAG ON MOBILE */
+            .hero-content h1 { font-size: 3.5rem; }
+            .about-grid, .modal-content, .contact-grid { grid-template-columns: 1fr; gap: 50px; }
+            .features-grid { grid-template-columns: 1fr; gap: 40px; }
             .widget { position: relative; top: 0; padding: 30px 20px; }
             .rules-grid { grid-template-columns: 1fr; }
-            .about-visual { margin-top: 40px; }
         }
     </style>
 </head>
 <body>
 
-    <header>
+    <header id="main-header">
         <h1 class="logo" onclick="window.scrollTo(0,0)">Spree<span>residence</span></h1>
         <div class="nav-actions">
             <a href="#about-section" class="contact-link" data-i18n="nav_about">About Us</a>
@@ -233,48 +284,76 @@
         <div class="hero-content">
             <h1 data-i18n="hero_title">Find your perfect Berlin stay.</h1>
             <p data-i18n="hero_subtitle">Premium apartments. Seamless self check-in. Total privacy and unmatched comfort.</p>
-            <a href="#grid" class="explore-btn" data-i18n="btn_explore">Explore Properties</a>
+            <a href="#grid-container" class="explore-btn" data-i18n="btn_explore">Explore Properties</a>
         </div>
     </section>
 
-    <section class="about-section" id="about-section">
-        <div class="about-grid">
-            <div class="about-content scroll-anim">
-                <h2 class="serif" data-i18n="about_us_title">Our Story</h2>
-                <p data-i18n="about_us_p1">Welcome to Spreeresidence, where luxury meets the vibrant soul of Berlin. We curate premium, architecturally stunning spaces designed specifically for the modern traveler.</p>
-                <p data-i18n="about_us_p2">Whether you're visiting for business or leisure, our mission is to provide an unforgettable stay with hotel-grade amenities, absolute privacy, and seamless experiences tailored just for you.</p>
-            </div>
-            <div class="about-visual scroll-anim">
-                <img src="images/DSC05935-HDR.jpg" alt="About Spreeresidence" class="about-img">
-                <div class="about-badge" data-i18n="about_us_badge">Premium Berlin Stays</div>
-            </div>
-        </div>
-    </section>
-
-    <section class="container">
-        <div class="section-header scroll-anim">
-            <h2 class="serif" data-i18n="grid_title">Exclusive Listings</h2>
+    <section class="container" id="grid-container">
+        <div class="section-header anim-element">
+            <h2 data-i18n="grid_title">Exclusive Listings</h2>
             <p data-i18n="grid_subtitle">Carefully curated spaces for the modern traveler.</p>
         </div>
         <div class="property-grid" id="grid">
             </div>
     </section>
 
+    <section class="features-section">
+        <div class="features-header anim-element">
+            <h2 data-i18n="feat_main_title">Travel Better With Spreeresidence</h2>
+        </div>
+        <div class="features-grid">
+            <div class="feature-item anim-element">
+                <div class="f-icon-circle"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+                <h3 data-i18n="feat1_title">Real Flexibility</h3>
+                <p data-i18n="feat1_desc">Whether for two nights or several weeks – book spontaneously, check in conveniently via self-check-in, and depart completely relaxed.</p>
+            </div>
+            <div class="feature-item anim-element" style="transition-delay: 0.1s;">
+                <div class="f-icon-circle"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></div>
+                <h3 data-i18n="feat2_title">Ready to Move In</h3>
+                <p data-i18n="feat2_desc">Fully equipped apartments with style, high-speed Wi-Fi and prime location – just arrive, unpack and feel at home.</p>
+            </div>
+            <div class="feature-item anim-element" style="transition-delay: 0.2s;">
+                <div class="f-icon-circle"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></div>
+                <h3 data-i18n="feat3_title">Curated Design</h3>
+                <p data-i18n="feat3_desc">Every apartment is furnished with attention to detail – in typical Spreeresidence style and always in places with special character.</p>
+            </div>
+            <div class="feature-item anim-element" style="transition-delay: 0.3s;">
+                <div class="f-icon-circle"><svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg></div>
+                <h3 data-i18n="feat4_title">24/7 Service</h3>
+                <p data-i18n="feat4_desc">Contact us, call, or use our guest portal – our team is available 24/7 to make your stay as pleasant as possible.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section" id="about-section">
+        <div class="about-grid">
+            <div class="about-content anim-element">
+                <h2 data-i18n="about_us_title">Our Story</h2>
+                <p data-i18n="about_us_p1">Welcome to Spreeresidence, where modern luxury meets the vibrant soul of Berlin. We curate premium, architecturally stunning spaces designed specifically for the discerning traveler.</p>
+                <p data-i18n="about_us_p2">Whether you're visiting for business or leisure, our mission is to provide an unforgettable stay with boutique hotel-grade amenities, absolute privacy, and seamless experiences tailored just for you.</p>
+            </div>
+            <div class="about-visual anim-element">
+                <img src="images/DSC05935-HDR.jpg" alt="About Spreeresidence" class="about-img" loading="lazy">
+                <div class="about-badge" data-i18n="about_us_badge">Flexible Living, Made Easy.</div>
+            </div>
+        </div>
+    </section>
+
     <section id="contact-section" class="contact-section">
         <div class="contact-grid">
-            <div class="contact-text scroll-anim">
-                <h2 class="serif" data-i18n="contact_title">We're here to help.</h2>
+            <div class="contact-text anim-element">
+                <h2 data-i18n="contact_title">We're here to help.</h2>
                 <p data-i18n="contact_desc">Have questions about a specific property, long-term stays, or special arrangements? Send us a message and our team will get back to you shortly.</p>
                 
                 <div class="contact-info-block">
-                    <div class="contact-icon">📞</div><div><strong style="font-size: 1.2rem;">01703251855</strong></div>
+                    <div class="contact-icon">📞</div><div><strong style="font-size: 1.3rem;">01703251855</strong></div>
                 </div>
                 <div class="contact-info-block">
-                    <div class="contact-icon">✉️</div><div><strong>Na.construct@outlook.de</strong></div>
+                    <div class="contact-icon">✉️</div><div><strong style="font-size: 1.1rem;">Na.construct@outlook.de</strong></div>
                 </div>
             </div>
             
-            <div class="form-box scroll-anim" style="transition-delay: 0.2s;">
+            <div class="form-box anim-element" style="transition-delay: 0.2s;">
                 <form action="https://formspree.io/f/xwvyyblo" method="POST">
                     <div class="input-group">
                         <input type="text" name="name" required>
@@ -296,50 +375,49 @@
 
     <div id="modal" class="modal">
         <div class="modal-nav">
-            <strong id="nav-prop-title" style="font-size: 1.2rem; font-weight: 800;">Property</strong>
+            <strong id="nav-prop-title" style="font-size: 1.3rem; font-weight: 700; font-family: 'Outfit', sans-serif;">Property</strong>
             <button class="close-btn" onclick="closeModal()">✕</button>
         </div>
         
         <div class="modal-content">
             <div class="m-left">
-                <div class="modal-gallery">
-                    <img id="m-img-1" src="" alt="View 1">
-                    <img id="m-img-2" src="" alt="View 2">
-                </div>
+                
+                <div class="modal-gallery" id="m-gallery-container">
+                    </div>
 
-                <h2 class="m-title serif" id="m-title">Title</h2>
+                <h2 class="m-title" id="m-title">Title</h2>
                 <div class="m-specs" id="m-specs">Specs</div>
 
-                <h3 class="section-title serif" data-i18n="sect_about">About this space</h3>
+                <h3 class="section-title" data-i18n="sect_about">About this space</h3>
                 <p class="m-desc-text" id="m-desc">Description goes here.</p>
 
-                <div class="rules-grid" style="margin-bottom: 40px; background: #fff1f2; border: 1px solid #fecdd3;">
+                <div class="rules-grid" style="margin-bottom: 40px; background: rgba(200, 97, 68, 0.05); border: 1px solid rgba(200, 97, 68, 0.15);">
                     <div class="rule-item">
-                        <span class="rule-icon">📍</span> 
+                        <span style="font-size: 1.8rem;">📍</span> 
                         <div>
-                            <strong data-i18n="loc_hidden_title">Exact location provided after booking</strong><br>
+                            <strong data-i18n="loc_hidden_title" style="color: var(--brand);">Exact location provided after booking</strong><br>
                             <span style="font-size: 0.95rem; color: var(--text-light);" data-i18n="loc_hidden_desc">To protect privacy, the exact address is shared upon confirmation.</span>
                         </div>
                     </div>
                 </div>
 
-                <h3 class="section-title serif" data-i18n="sect_reviews">Guest Reviews</h3>
+                <h3 class="section-title" data-i18n="sect_reviews">Guest Reviews</h3>
                 <div class="reviews-wrapper" id="m-reviews"></div>
 
-                <h3 class="section-title serif" data-i18n="sect_amenities">What this place offers</h3>
+                <h3 class="section-title" data-i18n="sect_amenities">What this place offers</h3>
                 <div class="amenities-grid" id="m-amenities-yes"></div>
                 
-                <h4 style="margin-top: 20px; font-size: 1.2rem; color: var(--text-light);" data-i18n="sect_not_included">Not included</h4>
+                <h4 style="margin-top: 30px; font-size: 1.2rem; color: var(--text-light); font-family: 'Outfit', sans-serif;" data-i18n="sect_not_included">Not included</h4>
                 <div class="amenities-grid" id="m-amenities-no"></div>
 
-                <h3 class="section-title serif" data-i18n="sect_rules">Things to Know</h3>
+                <h3 class="section-title" data-i18n="sect_rules">Things to Know</h3>
                 <div class="rules-grid">
-                    <div class="rule-item"><span class="rule-icon">🕒</span> <span data-i18n="rule_checkin">Check-in: After 15:00</span></div>
-                    <div class="rule-item"><span class="rule-icon">🕛</span> <span data-i18n="rule_checkout">Checkout: 11:00</span></div>
-                    <div class="rule-item"><span class="rule-icon">🚭</span> <span data-i18n="rule_smoking">No smoking</span></div>
-                    <div class="rule-item"><span class="rule-icon">🐾</span> <span data-i18n="rule_pets">No pets allowed</span></div>
-                    <div class="rule-item"><span class="rule-icon">🤫</span> <span data-i18n="rule_quiet">Quiet hours: 22:00 - 06:00</span></div>
-                    <div class="rule-item"><span class="rule-icon">🎉</span> <span data-i18n="rule_parties">No parties or events</span></div>
+                    <div class="rule-item"><span style="font-size: 1.5rem;">🕒</span> <span data-i18n="rule_checkin">Check-in: After 15:00</span></div>
+                    <div class="rule-item"><span style="font-size: 1.5rem;">🕛</span> <span data-i18n="rule_checkout">Checkout: 11:00</span></div>
+                    <div class="rule-item"><span style="font-size: 1.5rem;">🚭</span> <span data-i18n="rule_smoking">No smoking</span></div>
+                    <div class="rule-item"><span style="font-size: 1.5rem;">🐾</span> <span data-i18n="rule_pets">No pets allowed</span></div>
+                    <div class="rule-item"><span style="font-size: 1.5rem;">🤫</span> <span data-i18n="rule_quiet">Quiet hours: 22:00 - 06:00</span></div>
+                    <div class="rule-item"><span style="font-size: 1.5rem;">🎉</span> <span data-i18n="rule_parties">No parties or events</span></div>
                 </div>
             </div>
 
@@ -380,18 +458,27 @@
         </div>
     </div>
 
+    <div id="lightbox" class="lightbox-overlay" onclick="closeLightbox(event)">
+        <span class="lightbox-close" onclick="forceCloseLightbox()">✕</span>
+        <img id="lightbox-img" src="" alt="Enlarged View">
+    </div>
+
     <script>
         // --- 1. DATA: Translations ---
         const i18n = {
             en: {
                 nav_about: "About Us", nav_contact: "Contact", 
                 hero_title: "Find your perfect Berlin stay.", hero_subtitle: "Premium apartments. Seamless self check-in. Total privacy and unmatched comfort.", btn_explore: "Explore Properties",
-                about_us_title: "Our Story", about_us_p1: "Welcome to Spreeresidence, where luxury meets the vibrant soul of Berlin. We curate premium, architecturally stunning spaces designed specifically for the modern traveler.", about_us_p2: "Whether you're visiting for business or leisure, our mission is to provide an unforgettable stay with hotel-grade amenities, absolute privacy, and seamless experiences tailored just for you.", about_us_badge: "Premium Berlin Stays",
+                feat_main_title: "Travel Better With Spreeresidence",
+                feat1_title: "Real Flexibility", feat1_desc: "Whether for two nights or several weeks – book spontaneously, check in conveniently via self-check-in, and depart completely relaxed.",
+                feat2_title: "Ready to Move In", feat2_desc: "Fully equipped apartments with style, high-speed Wi-Fi and prime location – just arrive, unpack and feel at home.",
+                feat3_title: "Curated Design", feat3_desc: "Every apartment is furnished with attention to detail – in typical Spreeresidence style and always in places with special character.",
+                feat4_title: "24/7 Service", feat4_desc: "Contact us, call, or use our guest portal – our team is available 24/7 to make your stay as pleasant as possible.",
+                about_us_title: "Our Story", about_us_p1: "Welcome to Spreeresidence, where modern luxury meets the vibrant soul of Berlin. We curate premium, architecturally stunning spaces designed specifically for the discerning traveler.", about_us_p2: "Whether you're visiting for business or leisure, our mission is to provide an unforgettable stay with boutique hotel-grade amenities, absolute privacy, and seamless experiences tailored just for you.", about_us_badge: "Flexible Living, Made Easy.",
                 grid_title: "Exclusive Listings", grid_subtitle: "Carefully curated spaces for the modern traveler.",
                 contact_title: "We're here to help.", contact_desc: "Have questions about a specific property, long-term stays, or special arrangements? Send us a message and our team will get back to you shortly.",
                 form_name: "Full Name", form_email: "Email Address", form_msg: "Your Message", form_btn: "Send Message",
-                sect_about: "About this space",
-                loc_hidden_title: "Exact location provided after booking", loc_hidden_desc: "To protect privacy, the exact address is shared upon confirmation.",
+                sect_about: "About this space", loc_hidden_title: "Exact location provided after booking", loc_hidden_desc: "To protect privacy, the exact address is shared upon confirmation.",
                 sect_reviews: "Guest Reviews", sect_amenities: "What this place offers", sect_not_included: "Not included", sect_rules: "Things to Know",
                 rule_checkin: "Check-in: After 15:00", rule_checkout: "Checkout: 11:00", rule_smoking: "No smoking", rule_pets: "No pets allowed", rule_quiet: "Quiet hours: 22:00 - 06:00", rule_parties: "No parties or events",
                 widget_title: "Reserve your dates", lbl_checkin: "Check-in", lbl_checkout: "Checkout", lbl_requests: "Special requests (optional)", btn_book: "Request to Book",
@@ -400,12 +487,16 @@
             de: {
                 nav_about: "Über Uns", nav_contact: "Kontakt", 
                 hero_title: "Ihr perfekter Aufenthalt in Berlin.", hero_subtitle: "Premium-Apartments. Nahtloser Self-Check-in. Absolute Privatsphäre.", btn_explore: "Unterkünfte entdecken",
-                about_us_title: "Unsere Geschichte", about_us_p1: "Willkommen in der Spreeresidence, wo Luxus auf die lebendige Seele Berlins trifft. Wir kuratieren erstklassige, architektonisch atemberaubende Räume für moderne Reisende.", about_us_p2: "Egal ob geschäftlich oder privat, unsere Mission ist es, Ihnen einen unvergesslichen Aufenthalt mit Hotel-Annehmlichkeiten, absoluter Privatsphäre und nahtlosem Service zu bieten.", about_us_badge: "Premium Aufenthalte",
+                feat_main_title: "Besser Reisen Mit Spreeresidence",
+                feat1_title: "Echte Flexibilität", feat1_desc: "Ob für zwei Nächte oder mehrere Wochen – buchen Sie spontan, checken Sie bequem per Self-Check-in ein und reisen Sie völlig entspannt ab.",
+                feat2_title: "Einzugsbereit", feat2_desc: "Voll ausgestattete Apartments mit Stil, High-Speed-WLAN und bester Lage – einfach ankommen, auspacken und zu Hause fühlen.",
+                feat3_title: "Kuratierte Designs", feat3_desc: "Jedes Apartment ist mit Liebe zum Detail eingerichtet – im typischen Spreeresidence-Stil und immer an Orten mit besonderem Charakter.",
+                feat4_title: "24/7 Service", feat4_desc: "Kontaktieren Sie uns, rufen Sie an oder nutzen Sie unser Gästeportal – unser Team ist 24/7 erreichbar, um Ihren Aufenthalt so angenehm wie möglich zu gestalten.",
+                about_us_title: "Unsere Geschichte", about_us_p1: "Willkommen in der Spreeresidence, wo Luxus auf die lebendige Seele Berlins trifft. Wir kuratieren erstklassige, architektonisch atemberaubende Räume für moderne Reisende.", about_us_p2: "Egal ob geschäftlich oder privat, unsere Mission ist es, Ihnen einen unvergesslichen Aufenthalt mit Hotel-Annehmlichkeiten, absoluter Privatsphäre und nahtlosem Service zu bieten.", about_us_badge: "Flexibles Wohnen, ganz einfach.",
                 grid_title: "Exklusive Angebote", grid_subtitle: "Sorgfältig ausgewählte Räume für den modernen Reisenden.",
                 contact_title: "Wir sind hier, um zu helfen.", contact_desc: "Haben Sie Fragen zu einer bestimmten Unterkunft oder Langzeitaufenthalten? Senden Sie uns eine Nachricht.",
                 form_name: "Vollständiger Name", form_email: "E-Mail-Adresse", form_msg: "Ihre Nachricht", form_btn: "Nachricht Senden",
-                sect_about: "Über diese Unterkunft",
-                loc_hidden_title: "Genauer Standort nach Buchung", loc_hidden_desc: "Zum Schutz der Privatsphäre wird die Adresse nach Bestätigung mitgeteilt.",
+                sect_about: "Über diese Unterkunft", loc_hidden_title: "Genauer Standort nach Buchung", loc_hidden_desc: "Zum Schutz der Privatsphäre wird die Adresse nach Bestätigung mitgeteilt.",
                 sect_reviews: "Gästebewertungen", sect_amenities: "Was diese Unterkunft bietet", sect_not_included: "Nicht inbegriffen", sect_rules: "Gut zu wissen",
                 rule_checkin: "Check-in: Nach 15:00", rule_checkout: "Checkout: 11:00", rule_smoking: "Rauchen verboten", rule_pets: "Keine Haustiere", rule_quiet: "Ruhezeiten: 22:00 - 06:00", rule_parties: "Keine Partys oder Veranstaltungen",
                 widget_title: "Daten reservieren", lbl_checkin: "Check-in", lbl_checkout: "Checkout", lbl_requests: "Sonderwünsche (optional)", btn_book: "Buchung anfragen",
@@ -414,12 +505,16 @@
             nl: {
                 nav_about: "Over Ons", nav_contact: "Contact", 
                 hero_title: "Vind uw perfecte verblijf in Berlijn.", hero_subtitle: "Premium appartementen. Naadloze zelf inchecken. Totale privacy.", btn_explore: "Bekijk woningen",
-                about_us_title: "Ons Verhaal", about_us_p1: "Welkom bij Spreeresidence, waar luxe de levendige ziel van Berlijn ontmoet. Wij beheren hoogwaardige, architectonisch prachtige ruimtes voor de moderne reiziger.", about_us_p2: "Of u nu voor zaken of ontspanning komt, onze missie is om een onvergetelijk verblijf te bieden met hotelvoorzieningen, absolute privacy en naadloze ervaringen.", about_us_badge: "Premium Verblijven",
+                feat_main_title: "Reis Beter Met Spreeresidence",
+                feat1_title: "Echte Flexibiliteit", feat1_desc: "Of het nu voor twee nachten is of voor meerdere weken - boek spontaan, check gemakkelijk in via self-check-in en vertrek volledig ontspannen.",
+                feat2_title: "Klaar om in te trekken", feat2_desc: "Volledig uitgeruste appartementen met stijl, snelle Wi-Fi en een toplocatie - gewoon aankomen, uitpakken en u thuis voelen.",
+                feat3_title: "Zorgvuldig Ontwerp", feat3_desc: "Elk appartement is met oog voor detail ingericht - in typische Spreeresidence stijl en altijd op plekken met een bijzonder karakter.",
+                feat4_title: "24/7 Service", feat4_desc: "Neem contact met ons op, bel of gebruik ons gastenportaal - ons team is 24/7 beschikbaar om uw verblijf zo aangenaam mogelijk te maken.",
+                about_us_title: "Ons Verhaal", about_us_p1: "Welkom bij Spreeresidence, waar luxe de levendige ziel van Berlijn ontmoet. Wij beheren hoogwaardige, architectonisch prachtige ruimtes voor de moderne reiziger.", about_us_p2: "Of u nu voor zaken of ontspanning komt, onze missie is om een onvergetelijk verblijf te bieden met hotelvoorzieningen, absolute privacy en naadloze ervaringen.", about_us_badge: "Flexibel wonen, makkelijk gemaakt.",
                 grid_title: "Exclusieve aanbiedingen", grid_subtitle: "Zorgvuldig samengestelde ruimtes voor de moderne reiziger.",
                 contact_title: "We zijn hier om te helpen.", contact_desc: "Heeft u vragen over een specifieke woning of langdurig verblijf? Stuur ons een bericht.",
                 form_name: "Volledige naam", form_email: "E-mailadres", form_msg: "Uw bericht", form_btn: "Bericht versturen",
-                sect_about: "Over deze ruimte",
-                loc_hidden_title: "Exacte locatie na boeking", loc_hidden_desc: "Om de privacy te beschermen, wordt het adres gedeeld na bevestiging.",
+                sect_about: "Over deze ruimte", loc_hidden_title: "Exacte locatie na boeking", loc_hidden_desc: "Om de privacy te beschermen, wordt het adres gedeeld na bevestiging.",
                 sect_reviews: "Gastenbeoordelingen", sect_amenities: "Wat deze accommodatie biedt", sect_not_included: "Niet inbegrepen", sect_rules: "Huisregels",
                 rule_checkin: "Inchecken: Na 15:00", rule_checkout: "Uitchecken: 11:00", rule_smoking: "Niet roken", rule_pets: "Geen huisdieren toegestaan", rule_quiet: "Stilte-uren: 22:00 - 06:00", rule_parties: "Geen feesten of evenementen",
                 widget_title: "Reserveer uw data", lbl_checkin: "Inchecken", lbl_checkout: "Uitchecken", lbl_requests: "Speciale verzoeken (optioneel)", btn_book: "Reservering aanvragen",
@@ -428,12 +523,16 @@
             fr: {
                 nav_about: "À Propos", nav_contact: "Contact", 
                 hero_title: "Trouvez votre séjour parfait à Berlin.", hero_subtitle: "Appartements premium. Arrivée autonome. Intimité totale.", btn_explore: "Explorer les propriétés",
-                about_us_title: "Notre Histoire", about_us_p1: "Bienvenue à Spreeresidence, où le luxe rencontre l'âme vibrante de Berlin. Nous sélectionnons des espaces haut de gamme à l'architecture époustouflante pour le voyageur moderne.", about_us_p2: "Que ce soit pour les affaires ou les loisirs, notre mission est de vous offrir un séjour inoubliable avec des équipements dignes d'un hôtel, une intimité absolue et des expériences fluides.", about_us_badge: "Séjours Premium",
+                feat_main_title: "Voyagez Mieux Avec Spreeresidence",
+                feat1_title: "Une Vraie Flexibilité", feat1_desc: "Que ce soit pour deux nuits ou plusieurs semaines – réservez spontanément, enregistrez-vous facilement et partez en toute détente.",
+                feat2_title: "Prêt à vivre", feat2_desc: "Des appartements entièrement équipés avec style, Wi-Fi haut débit et emplacement de choix – arrivez, déballez et sentez-vous chez vous.",
+                feat3_title: "Design Soigné", feat3_desc: "Chaque appartement est meublé avec une attention aux détails – dans le style typique de Spreeresidence et toujours dans des lieux de caractère.",
+                feat4_title: "Service 24/7", feat4_desc: "Contactez-nous, appelez ou utilisez notre portail invité – notre équipe est disponible 24/7 pour rendre votre séjour aussi agréable que possible.",
+                about_us_title: "Notre Histoire", about_us_p1: "Bienvenue à Spreeresidence, où le luxe rencontre l'âme vibrante de Berlin. Nous sélectionnons des espaces haut de gamme à l'architecture époustouflante pour le voyageur moderne.", about_us_p2: "Que ce soit pour les affaires ou les loisirs, notre mission est de vous offrir un séjour inoubliable avec des équipements dignes d'un hôtel, une intimité absolue et des expériences fluides.", about_us_badge: "La vie flexible, simplifiée.",
                 grid_title: "Propriétés exclusives", grid_subtitle: "Des espaces soigneusement sélectionnés pour le voyageur moderne.",
                 contact_title: "Nous sommes là pour vous aider.", contact_desc: "Vous avez des questions sur une propriété ou un séjour prolongé ? Envoyez-nous un message.",
                 form_name: "Nom complet", form_email: "Adresse e-mail", form_msg: "Votre message", form_btn: "Envoyer le message",
-                sect_about: "À propos de ce logement",
-                loc_hidden_title: "Emplacement exact fourni après réservation", loc_hidden_desc: "Pour protéger la vie privée, l'adresse est partagée lors de la confirmation.",
+                sect_about: "À propos de ce logement", loc_hidden_title: "Emplacement exact fourni après réservation", loc_hidden_desc: "Pour protéger la vie privée, l'adresse est partagée lors de la confirmation.",
                 sect_reviews: "Avis des voyageurs", sect_amenities: "Ce que propose ce logement", sect_not_included: "Non inclus", sect_rules: "Règlement intérieur",
                 rule_checkin: "Arrivée : Après 15:00", rule_checkout: "Départ : 11:00", rule_smoking: "Non fumeur", rule_pets: "Animaux interdits", rule_quiet: "Heures calmes : 22:00 - 06:00", rule_parties: "Pas de fêtes",
                 widget_title: "Réservez vos dates", lbl_checkin: "Arrivée", lbl_checkout: "Départ", lbl_requests: "Demandes spéciales (facultatif)", btn_book: "Demander à réserver",
@@ -441,84 +540,59 @@
             }
         };
 
-        // --- 2. DATA: Properties (Descriptions & Images) ---
+        // --- 2. DATA: Properties ---
         const propsData = [
-            { id: 1, img1: "images/DSC05935-HDR.jpg", img2: "images/DSC05928-HDR.jpg", g: 4, bRoom: 2, beds: 2, bRoomCount: 1, 
+            { 
+              id: 1, 
+              images: [
+                  "appartment2/DSC06018-HDR~01.jpg", "appartment2/DSC06021-HDR~01.jpg", "appartment2/DSC06027-HDR - Kopie~01.jpg", 
+                  "appartment2/DSC06027-HDR~01.jpg", "appartment2/DSC06003-HDR~01.jpg", "appartment2/DSC06006-HDR~01.jpg",
+                  "appartment2/DSC06009-HDR~01.jpg", "appartment2/DSC06030-HDR - Kopie~01.jpg", "appartment2/DSC06033-HDR - Kopie~01.jpg",
+                  "appartment2/DSC06037-HDR - Kopie~01.jpg", "appartment2/DSC06040~01.jpg", "appartment2/DSC06042-HDR - Kopie~01.jpg",
+                  "appartment2/DSC06045-HDR~01.jpg"
+              ], 
+              g: 4, bRoom: 2, beds: 2, bRoomCount: 1, 
               titles: { en: "Urban Living in Berlin-Mitte", de: "Urbanes Wohnen in Berlin-Mitte", nl: "Stedelijk wonen in Berlijn-Mitte", fr: "Vie urbaine à Berlin-Mitte" },
-              desc: { 
-                  en: "Experience the heartbeat of Berlin in this stunning urban retreat. Designed with impeccable taste, this spacious apartment offers a perfect blend of modern luxury and cozy comfort, making it the ideal base for families or groups exploring the city.", 
-                  de: "Erleben Sie den Herzschlag Berlins in diesem atemberaubenden urbanen Rückzugsort. Dieses geräumige Apartment bietet eine perfekte Mischung aus modernem Luxus und gemütlichem Komfort.", 
-                  nl: "Ervaar de hartslag van Berlijn in dit prachtige stedelijke toevluchtsoord. Dit ruime appartement biedt een perfecte mix van moderne luxe en gezellig comfort.", 
-                  fr: "Découvrez le cœur de Berlin dans cette superbe retraite urbaine. Cet appartement spacieux offre un mélange parfait de luxe moderne et de confort douillet." 
-              },
+              desc: { en: "Experience the heartbeat of Berlin in this stunning urban retreat. Designed with impeccable taste, this spacious apartment offers a perfect blend of modern luxury and cozy comfort.", de: "Erleben Sie den Herzschlag Berlins in diesem atemberaubenden urbanen Rückzugsort. Dieses geräumige Apartment bietet eine perfekte Mischung aus modernem Luxus und gemütlichem Komfort.", nl: "Ervaar de hartslag van Berlijn in dit prachtige stedelijke toevluchtsoord. Dit ruime appartement biedt een perfecte mix van moderne luxe en gezellig comfort.", fr: "Découvrez le cœur de Berlin dans cette superbe retraite urbaine. Cet appartement spacieux offre un mélange parfait de luxe moderne et de confort douillet." },
               locs: { en: "Berlin-Mitte, Berlin", de: "Berlin-Mitte, Berlin", nl: "Berlijn-Mitte, Berlijn", fr: "Berlin-Mitte, Berlin" },
-              revs: { en: "Incredible design and perfect location.", de: "Unglaubliches Design und perfekte Lage.", nl: "Ongelofelijk ontwerp en perfecte locatie.", fr: "Design incroyable et emplacement parfait." }, revA: "Sarah M." },
-            
-            { id: 2, img1: "images/DSC05970-HDR.jpg", img2: "images/DSC05964-HDR.jpg", g: 4, bRoom: 1, beds: 2, bRoomCount: 1, 
+              revs: { en: "Incredible design and perfect location.", de: "Unglaubliches Design und perfekte Lage.", nl: "Ongelofelijk ontwerp en perfecte locatie.", fr: "Design incroyable et emplacement parfait." }, revA: "Sarah M." 
+            },
+            { 
+              id: 2, 
+              images: ["appartment5/Helmholtzstraße 17-1.jpg", "appartment5/Helmholtz_Aussen-1.jpg", "appartment5/Helmholtzstraße 17-2.jpg", "appartment5/Helmholtzstraße 17-3.jpg", "appartment5/Helmholtzstraße 17-4.jpg", "appartment5/Helmholtzstraße 17-9.jpg", "appartment5/Helmholtzstraße 17-12.jpg", "appartment5/Helmholtzstraße 17-13.jpg", "appartment5/Helmholtzstraße 17-15.jpg", "appartment5/Helmholtzstraße 17-16.jpg", "appartment5/Helmholtzstraße 17-18.jpg", "appartment5/Helmholtzstraße 17-19.jpg", "appartment5/Helmholtzstraße 17-21.jpg", "appartment5/Helmholtzstraße 17-23.jpg", "appartment5/Helmholtzstraße 17-24.jpg", "appartment5/Helmholtzstraße 17-25.jpg", "appartment5/IMG_5920.jpg", "appartment5/IMG_5921.jpg", "appartment5/IMG_5923.jpg", "appartment5/IMG_5924.jpg"], 
+              g: 4, bRoom: 1, beds: 2, bRoomCount: 1, 
               titles: { en: "Stylish studio with gallery sleeping area", de: "Stilvolles Studio mit Galerie-Schlafbereich", nl: "Stijlvolle studio met galerij slaapgedeelte", fr: "Studio élégant avec coin nuit en mezzanine" },
-              desc: { 
-                  en: "Step into a world of architectural elegance. This stylish studio features a unique gallery sleeping area, bathing the space in natural light. High-end finishes and a smart layout create a true boutique hotel atmosphere.", 
-                  de: "Treten Sie ein in eine Welt architektonischer Eleganz. Dieses stilvolle Studio verfügt über einen einzigartigen Galerie-Schlafbereich. Hochwertige Oberflächen schaffen eine echte Boutique-Hotel-Atmosphäre.", 
-                  nl: "Stap binnen in een wereld van architectonische elegantie. Deze stijlvolle studio beschikt over een uniek slaapgedeelte op de galerij. Hoogwaardige afwerkingen creëren een echte boetiekhotel sfeer.", 
-                  fr: "Entrez dans un monde d'élégance architecturale. Ce studio élégant dispose d'un coin nuit unique en mezzanine. Des finitions haut de gamme créent une véritable atmosphère d'hôtel-boutique." 
-              },
+              desc: { en: "Step into a world of architectural elegance. This stylish studio features a unique gallery sleeping area, bathing the space in natural light. High-end finishes and a smart layout create a true boutique hotel atmosphere.", de: "Treten Sie ein in eine Welt architektonischer Eleganz. Dieses stilvolle Studio verfügt über einen einzigartigen Galerie-Schlafbereich. Hochwertige Oberflächen schaffen eine echte Boutique-Hotel-Atmosphäre.", nl: "Stap binnen in een wereld van architectonische elegantie. Deze stijlvolle studio beschikt over een uniek slaapgedeelte op de galerij. Hoogwaardige afwerkingen creëren een echte boetiekhotel sfeer.", fr: "Entrez dans un monde d'élégance architecturale. Ce studio élégant dispose d'un coin nuit unique en mezzanine. Des finitions haut de gamme créent une véritable atmosphère d'hôtel-boutique." },
               locs: { en: "Berlin, Germany", de: "Berlin, Deutschland", nl: "Berlijn, Duitsland", fr: "Berlin, Allemagne" },
-              revs: { en: "Very cozy, the loft bed is a great touch!", de: "Sehr gemütlich, das Hochbett ist toll!", nl: "Erg gezellig, de hoogslaper is een leuke touch!", fr: "Très cosy, le lit mezzanine est super !" }, revA: "Thomas K." },
-            
-            { id: 3, img1: "images/DSC05943-HDR.jpg", img2: "images/DSC05950-HDR.jpg", g: 3, bRoom: 1, beds: 2, bRoomCount: 1, 
+              revs: { en: "Very cozy, the loft bed is a great touch!", de: "Sehr gemütlich, das Hochbett ist toll!", nl: "Erg gezellig, de hoogslaper is een leuke touch!", fr: "Très cosy, le lit mezzanine est super !" }, revA: "Thomas K." 
+            },
+            { 
+              id: 3, 
+              images: ["appartment4/DSC06087-HDR~01.jpg", "appartment4/DSC06090-HDR~01.jpg", "appartment4/DSC06093-HDR~01.jpg", "appartment4/DSC06104-HDR~01.jpg", "appartment4/DSC06107-HDR~01.jpg", "appartment4/DSC06113-HDR~01.jpg", "appartment4/DSC06110-HDR~01.jpg", "appartment4/DSC06116-HDR~01.jpg", "appartment4/DSC06119-HDR~01.jpg", "appartment4/DSC06122-HDR~01.jpg", "appartment4/DSC06125-HDR~01.jpg", "appartment4/DSC06128-HDR~01.jpg", "appartment4/DSC06131-HDR~01.jpg", "appartment4/DSC06134~01.jpg", "appartment4/DSC06139~01.jpg", "appartment4/DSC06140~01.jpg", "appartment4/DSC06143~01.jpg", "appartment4/DSC06145~01.jpg"], 
+              g: 3, bRoom: 1, beds: 2, bRoomCount: 1, 
               titles: { en: "Quiet Urban Apartment with Courtyard", de: "Ruhiges Stadtapartment mit Innenhof", nl: "Rustig stadsappartement met binnenplaats", fr: "Appartement urbain calme avec cour" },
-              desc: { 
-                  en: "Your private oasis in the bustling city. Overlooking a serene courtyard, this quiet apartment promises restful nights. Enjoy your morning coffee with premium amenities thoughtfully curated for your stay.", 
-                  de: "Ihre private Oase in der geschäftigen Stadt. Mit Blick auf einen ruhigen Innenhof verspricht dieses Apartment erholsame Nächte. Genießen Sie erstklassige Annehmlichkeiten für Ihren Aufenthalt.", 
-                  nl: "Uw privé-oase in de bruisende stad. Dit rustige appartement kijkt uit op een serene binnenplaats en belooft rustige nachten. Geniet van premium voorzieningen voor uw verblijf.", 
-                  fr: "Votre oasis privée dans la ville animée. Donnant sur une cour sereine, cet appartement calme promet des nuits reposantes. Profitez d'équipements haut de gamme pour votre séjour." 
-              },
+              desc: { en: "Your private oasis in the bustling city. Overlooking a serene courtyard, this quiet apartment promises restful nights. Enjoy your morning coffee with premium amenities thoughtfully curated for your stay.", de: "Ihre private Oase in der geschäftigen Stadt. Mit Blick auf einen ruhigen Innenhof verspricht dieses Apartment erholsame Nächte. Genießen Sie erstklassige Annehmlichkeiten für Ihren Aufenthalt.", nl: "Uw privé-oase in de bruisende stad. Dit rustige appartement kijkt uit op een serene binnenplaats en belooft rustige nachten. Geniet van premium voorzieningen voor uw verblijf.", fr: "Votre oasis privée dans la ville animée. Donnant sur une cour sereine, cet appartement calme promet des nuits reposantes. Profitez d'équipements haut de gamme pour votre séjour." },
               locs: { en: "Berlin, Germany", de: "Berlin, Deutschland", nl: "Berlijn, Duitsland", fr: "Berlin, Allemagne" },
-              revs: { en: "Peaceful escape in the middle of the city.", de: "Friedliche Flucht mitten in der Stadt.", nl: "Vredige ontsnapping midden in de stad.", fr: "Évasion paisible au milieu de la ville." }, revA: "Marie L." },
-
-            { id: 4, img1: "images/DSC05991-HDR.jpg", img2: "images/DSC06000-HDR.jpg", g: 4, bRoom: 1, beds: 3, bRoomCount: 1, 
-              titles: { en: "Modern studio near Kurfürstendamm", de: "Modernes Studio nahe Kurfürstendamm", nl: "Moderne studio vlakbij Kurfürstendamm", fr: "Studio moderne près du Kurfürstendamm" },
-              desc: { 
-                  en: "Located steps away from Berlin's famous shopping boulevard, this modern studio is a masterpiece of design. Boasting abundant sleeping space and chic decor, it offers unmatched convenience and style.", 
-                  de: "Dieses moderne Studio liegt nur wenige Schritte von Berlins berühmtem Einkaufsboulevard entfernt und ist ein Meisterwerk des Designs. Es bietet unübertroffenen Komfort und Stil.", 
-                  nl: "Gelegen op een steenworp afstand van de beroemde winkelstraat van Berlijn, is deze moderne studio een meesterwerk van design. Het biedt ongeëvenaard gemak en stijl.", 
-                  fr: "Situé à quelques pas du célèbre boulevard commerçant de Berlin, ce studio moderne est un chef-d'œuvre de design. Il offre un confort et un style inégalés." 
-              },
-              locs: { en: "Kurfürstendamm, Berlin", de: "Kurfürstendamm, Berlin", nl: "Kurfürstendamm, Berlijn", fr: "Kurfürstendamm, Berlin" },
-              revs: { en: "The games room was fantastic for our group.", de: "Das Spielzimmer war fantastisch für unsere Gruppe.", nl: "De speelkamer was fantastisch voor onze groep.", fr: "La salle de jeux était fantastique pour notre groupe." }, revA: "Elena R." },
-
-            { id: 5, img1: "images/DSC05984-HDR.jpg", img2: "images/DSC05997-HDR.jpg", g: 4, bRoom: 1, beds: 1, bRoomCount: 1, 
+              revs: { en: "Peaceful escape in the middle of the city.", de: "Friedliche Flucht mitten in der Stadt.", nl: "Vredige ontsnapping midden in de stad.", fr: "Évasion paisible au milieu de la ville." }, revA: "Marie L." 
+            },
+            { 
+              id: 5, 
+              images: ["appartment3/DSC06048-HDR~01.jpg", "appartment3/DSC06051-HDR~01.jpg", "appartment3/DSC06054-HDR~01.jpg", "appartment3/DSC06059-HDR~01.jpg", "appartment3/DSC06065-HDR~01.jpg", "appartment3/DSC06068-HDR~01.jpg", "appartment3/DSC06071-HDR~01.jpg", "appartment3/DSC06077-HDR~01.jpg", "appartment3/DSC06080-HDR~01.jpg", "appartment3/DSC06084-HDR~01.jpg"], 
+              g: 4, bRoom: 1, beds: 1, bRoomCount: 1, 
               titles: { en: "Spacious apartment near central station", de: "Geräumiges Apartment nahe Hauptbahnhof", nl: "Ruim appartement nabij centraal station", fr: "Spacieux appartement près de la gare" },
-              desc: { 
-                  en: "Generously proportioned and flawlessly maintained, this expansive apartment near the central station offers unparalleled connectivity. Perfect for business travelers or couples seeking a premium experience.", 
-                  de: "Großzügig geschnitten und makellos gepflegt, bietet dieses weitläufige Apartment in der Nähe des Hauptbahnhofs eine unvergleichliche Anbindung. Perfekt für Geschäftsreisende.", 
-                  nl: "Royaal geproportioneerd en feilloos onderhouden, biedt dit uitgestrekte appartement nabij het centraal station een ongeëvenaarde bereikbaarheid. Perfect voor zakenreizigers.", 
-                  fr: "Généreusement proportionné et impeccablement entretenu, ce vaste appartement près de la gare centrale offre une connectivité inégalée. Parfait pour les voyageurs d'affaires." 
-              },
+              desc: { en: "Generously proportioned and flawlessly maintained, this expansive apartment near the central station offers unparalleled connectivity. Perfect for business travelers or couples seeking a premium experience.", de: "Großzügig geschnitten und makellos gepflegt, bietet dieses weitläufige Apartment in der Nähe des Hauptbahnhofs eine unvergleichliche Anbindung. Perfekt für Geschäftsreisende.", nl: "Royaal geproportioneerd en feilloos onderhouden, biedt dit uitgestrekte appartement nabij het centraal station een ongeëvenaarde bereikbaarheid. Perfect voor zakenreizigers.", fr: "Généreusement proportionné et impeccablement entretenu, ce vaste appartement près de la gare centrale offre une connectivité inégalée. Parfait pour les voyageurs d'affaires." },
               locs: { en: "Hauptbahnhof, Berlin", de: "Hauptbahnhof, Berlin", nl: "Hauptbahnhof, Berlijn", fr: "Gare Centrale, Berlin" },
-              revs: { en: "Extremely clean and convenient for transit.", de: "Extrem sauber und praktisch für die Durchreise.", nl: "Extreem schoon en handig voor doorreis.", fr: "Extrêmement propre et pratique pour le transit." }, revA: "James T." },
-
-            { id: 6, img1: "images/DSC05978-HDR.jpg", img2: "images/DSC05981-HDR.jpg", g: 3, bRoom: 1, beds: 2, bRoomCount: 1, 
-              titles: { en: "Cosy studio with loft bed in Charlottenburg", de: "Gemütliches Studio mit Hochbett in Charlottenburg", nl: "Gezellige studio met hoogslaper in Charlottenburg", fr: "Studio cosy avec lit mezzanine à Charlottenburg" },
-              desc: { 
-                  en: "Nestled in the elegant district of Charlottenburg, this cozy studio maximizes space with a beautifully crafted loft bed. The spa-like bathroom and warm aesthetics ensure a truly relaxing getaway.", 
-                  de: "Eingebettet im eleganten Stadtteil Charlottenburg, maximiert dieses gemütliche Studio den Platz mit einem wunderschön gestalteten Hochbett. Das Spa-ähnliche Badezimmer sorgt für Entspannung.", 
-                  nl: "Genesteld in de elegante wijk Charlottenburg, maximaliseert deze gezellige studio de ruimte met een prachtig vervaardigde hoogslaper. De spa-achtige badkamer zorgt voor ontspanning.", 
-                  fr: "Niché dans l'élégant quartier de Charlottenburg, ce studio cosy maximise l'espace avec un lit mezzanine magnifiquement conçu. La salle de bain de style spa assure la détente." 
-              },
-              locs: { en: "Charlottenburg, Berlin", de: "Charlottenburg, Berlin", nl: "Charlottenburg, Berlijn", fr: "Charlottenburg, Berlin" },
-              revs: { en: "The bathroom feels like a 5-star spa.", de: "Das Badezimmer fühlt sich an wie ein 5-Sterne-Spa.", nl: "De badkamer voelt als een 5-sterren spa.", fr: "La salle de bain ressemble à un spa 5 étoiles." }, revA: "Anna B." },
-
-            { id: 7, img1: "images/DSC05974.jpg", img2: "images/DSC05987-HDR.jpg", g: 4, bRoom: 1, beds: 2, bRoomCount: 1, 
+              revs: { en: "Extremely clean and convenient for transit.", de: "Extrem sauber und praktisch für die Durchreise.", nl: "Extreem schoon en handig voor doorreis.", fr: "Extrêmement propre et pratique pour le transit." }, revA: "James T." 
+            },
+            { 
+              id: 7, 
+              images: ["images/DSC05928-HDR.jpg", "images/DSC05935-HDR.jpg", "images/DSC05943-HDR.jpg", "images/DSC05950-HDR.jpg", "images/DSC05964-HDR.jpg", "images/DSC05970-HDR.jpg", "images/DSC05974.jpg", "images/DSC05978-HDR.jpg", "images/DSC05981-HDR.jpg", "images/DSC05984-HDR.jpg", "images/DSC05987-HDR.jpg", "images/DSC05991-HDR.jpg", "images/DSC05997-HDR.jpg", "images/DSC06000-HDR.jpg"], 
+              g: 4, bRoom: 1, beds: 2, bRoomCount: 1, 
               titles: { en: "City apartment with chill-out area", de: "Stadtapartment mit Chill-out-Bereich", nl: "Stadsappartement met chill-out ruimte", fr: "Appartement de ville avec espace détente" },
-              desc: { 
-                  en: "Unwind in style! This vibrant city apartment is designed for fun and relaxation, featuring a dedicated chill-out area and modern kitchen options. A brilliant space for making memories in Berlin.", 
-                  de: "Entspannen Sie mit Stil! Dieses lebendige Stadtapartment ist auf Spaß und Entspannung ausgelegt und verfügt über einen eigenen Chill-out-Bereich. Ein brillanter Ort für Erinnerungen in Berlin.", 
-                  nl: "Ontspan in stijl! Dit levendige stadsappartement is ontworpen voor plezier en ontspanning, met een speciale chill-out ruimte. Een briljante ruimte voor herinneringen in Berlijn.", 
-                  fr: "Détendez-vous avec style ! Cet appartement de ville dynamique est conçu pour le plaisir et la détente, avec un espace dédié à la détente. Un espace brillant pour des souvenirs à Berlin." 
-              },
+              desc: { en: "Unwind in style! This vibrant city apartment is designed for fun and relaxation, featuring a dedicated chill-out area and modern kitchen options. A brilliant space for making memories in Berlin.", de: "Entspannen Sie mit Stil! Dieses lebendige Stadtapartment ist auf Spaß und Entspannung ausgelegt und verfügt über einen eigenen Chill-out-Bereich. Ein brillanter Ort für Erinnerungen in Berlin.", nl: "Ontspan in stijl! Dit levendige stadsappartement is ontworpen voor plezier en ontspanning, met een speciale chill-out ruimte. Een briljante ruimte voor herinneringen in Berlijn.", fr: "Détendez-vous avec style ! Cet appartement de ville dynamique est conçu pour le plaisir et la détente, avec un espace dédié à la détente. Un espace brillant pour des souvenirs à Berlin." },
               locs: { en: "Berlin, Germany", de: "Berlin, Deutschland", nl: "Berlijn, Duitsland", fr: "Berlin, Allemagne" },
-              revs: { en: "We loved cooking in the modern kitchen.", de: "Wir haben es geliebt, in der modernen Küche zu kochen.", nl: "We hielden ervan om te koken in de moderne keuken.", fr: "Nous avons adoré cuisiner dans la cuisine moderne." }, revA: "Lucas M." }
+              revs: { en: "We loved cooking in the modern kitchen.", de: "Wir haben es geliebt, in der modernen Küche zu kochen.", nl: "We hielden ervan om te koken in de moderne keuken.", fr: "Nous avons adoré cuisiner dans la cuisine moderne." }, revA: "Lucas M." 
+            }
         ];
 
         // --- 3. DATA: Amenities ---
@@ -539,14 +613,10 @@
         function changeLanguage() {
             currentLang = document.getElementById('lang-switcher').value;
             const t = i18n[currentLang];
-
-            // Update static elements
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if(t[key]) el.innerText = t[key];
             });
-
-            // Re-render grid
             renderGrid();
         }
 
@@ -558,13 +628,13 @@
             propsData.forEach((p, index) => {
                 const specStr = `${p.g} ${t.t_guests} • ${p.bRoom} ${p.bRoom > 1 ? t.t_bedrooms : t.t_bedroom} • ${p.beds} ${p.beds > 1 ? t.t_beds : t.t_bed}`;
                 const html = `
-                    <div class="property-card scroll-anim" style="animation-delay: ${index * 0.1}s" onclick="openModal(${p.id})">
+                    <div class="property-card scroll-anim" style="transition-delay: ${index * 0.1}s" onclick="openModal(${p.id})">
                         <div class="img-wrap">
                             <div class="badge">★ Guest Favorite</div>
-                            <img src="${p.img1}" loading="lazy">
+                            <img src="${p.images[0]}" loading="lazy">
                         </div>
                         <div class="card-info">
-                            <div class="card-loc"><span>${p.locs[currentLang]}</span><span style="font-size: 0.9rem;">★ 4.9</span></div>
+                            <div class="card-loc"><span>${p.locs[currentLang]}</span><span style="font-size: 0.9rem; color: var(--brand);">★ 4.9</span></div>
                             <div class="card-specs">${specStr}</div>
                             <div class="card-title">${p.titles[currentLang]}</div>
                         </div>
@@ -575,31 +645,53 @@
             initScrollObserver();
         }
 
+        // --- SCROLL HEADER EFFECT ---
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
         // --- MODAL LOGIC ---
         function openModal(id) {
             const p = propsData.find(x => x.id === id);
             const t = i18n[currentLang];
 
-            // Set Data
             document.getElementById('nav-prop-title').innerText = p.titles[currentLang];
             document.getElementById('m-title').innerText = p.titles[currentLang];
             document.getElementById('m-specs').innerText = `${p.g} ${t.t_guests} • ${p.bRoom} ${p.bRoom > 1 ? t.t_bedrooms : t.t_bedroom} • ${p.beds} ${p.beds > 1 ? t.t_beds : t.t_bed} • ${p.bRoomCount} ${t.t_bath}`;
-            
-            // New Description
             document.getElementById('m-desc').innerText = p.desc[currentLang];
-
-            // Images
-            document.getElementById('m-img-1').src = p.img1;
-            document.getElementById('m-img-2').src = p.img2;
-
-            // Form tracking
             document.getElementById('m-hidden-prop').value = p.titles.en;
 
-            // Amenities
+            const galleryContainer = document.getElementById('m-gallery-container');
+            let galleryHTML = '';
+            
+            p.images.forEach((imgSrc, index) => {
+                if (index < 3) {
+                    // OPTIMIZATION: Added loading="lazy" to all modal images
+                    galleryHTML += `<div class="gallery-image-wrapper"><img src="${imgSrc}" loading="lazy" onclick="openLightbox(this.src)"></div>`;
+                } else if (index === 3 && p.images.length > 4) {
+                    const extraCount = p.images.length - 4;
+                    galleryHTML += `
+                        <div class="gallery-image-wrapper" onclick="showAllModalImages(this)">
+                            <img src="${imgSrc}" loading="lazy">
+                            <div class="more-images-overlay">+${extraCount} Photos</div>
+                        </div>
+                    `;
+                } else if (index === 3 && p.images.length === 4) {
+                    galleryHTML += `<div class="gallery-image-wrapper"><img src="${imgSrc}" loading="lazy" onclick="openLightbox(this.src)"></div>`;
+                } else {
+                    galleryHTML += `<div class="gallery-image-wrapper hidden-image"><img src="${imgSrc}" loading="lazy" onclick="openLightbox(this.src)"></div>`;
+                }
+            });
+            
+            galleryContainer.innerHTML = galleryHTML;
+
             document.getElementById('m-amenities-yes').innerHTML = amenities.inc[currentLang].map(a => `<div class="am-item">✔️ ${a}</div>`).join('');
             document.getElementById('m-amenities-no').innerHTML = amenities.exc[currentLang].map(a => `<div class="am-item no">❌ ${a}</div>`).join('');
-
-            // Individual Property Reviews
             document.getElementById('m-reviews').innerHTML = `
                 <div class="review-box">
                     <div class="stars">★★★★★</div>
@@ -608,14 +700,40 @@
                 </div>
             `;
 
-            // Open
-            document.getElementById('modal').style.display = 'block';
+            const modal = document.getElementById('modal');
+            modal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
-            document.getElementById('modal').style.display = 'none';
+            const modal = document.getElementById('modal');
+            modal.classList.remove('active');
             document.body.style.overflow = 'auto';
+        }
+
+        function showAllModalImages(wrapperElement) {
+            wrapperElement.querySelector('.more-images-overlay').style.display = 'none';
+            const img = wrapperElement.querySelector('img');
+            img.onclick = () => openLightbox(img.src);
+            
+            const hiddenImages = document.querySelectorAll('#m-gallery-container .hidden-image');
+            hiddenImages.forEach(el => el.classList.remove('hidden-image'));
+        }
+
+        // --- BULLETPROOF LIGHTBOX ---
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+        
+        function forceCloseLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        function closeLightbox(e) {
+            if (e.target.id === 'lightbox' || e.target.className === 'lightbox-close') {
+                forceCloseLightbox();
+            }
         }
 
         // --- OBSERVERS & INIT ---
@@ -627,12 +745,12 @@
                         observer.unobserve(e.target);
                     }
                 });
-            }, { threshold: 0.1 });
-            document.querySelectorAll('.scroll-anim').forEach(el => observer.observe(el));
+            }, { threshold: 0.15 });
+            document.querySelectorAll('.anim-element, .scroll-anim').forEach(el => observer.observe(el));
         }
 
-        // Run on load
         renderGrid();
+        initScrollObserver();
     </script>
 </body>
 </html>
