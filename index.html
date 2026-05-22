@@ -29,11 +29,9 @@
         header {
             position: fixed; top: 0; width: 100%; z-index: 1000;
             padding: 20px 5vw; display: flex; justify-content: space-between; align-items: center;
-            /* OPTIMIZED TRANSITION */
             transition: background-color 0.4s, padding 0.4s, border-color 0.4s;
             background: rgba(249, 248, 245, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(232, 227, 221, 0.6);
-            /* HARDWARE ACCELERATION */
             transform: translateZ(0); will-change: background-color, padding;
         }
         header.scrolled {
@@ -44,6 +42,10 @@
         .logo:hover { opacity: 0.8; }
         
         .nav-actions { display: flex; align-items: center; gap: 30px; }
+        
+        /* Desktop Links */
+        .nav-links-desktop { display: flex; align-items: center; gap: 30px; }
+        
         .lang-select {
             padding: 8px 18px; border-radius: 50px; border: 1px solid var(--border); background: var(--surface);
             font-family: inherit; font-weight: 600; cursor: pointer; outline: none; transition: border-color 0.3s, color 0.3s, box-shadow 0.3s; color: var(--dark);
@@ -56,13 +58,28 @@
         .contact-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0; background-color: var(--brand); transition: width 0.3s; }
         .contact-link:hover::after { width: 100%; }
 
+        /* Hamburger Menu Icon */
+        .hamburger { display: none; cursor: pointer; color: var(--dark); transition: color 0.3s; }
+        header.scrolled .hamburger { color: white; }
+
+        /* Mobile Dropdown Menu */
+        .mobile-menu {
+            position: absolute; top: 100%; left: 0; width: 100%; background: var(--surface);
+            padding: 0 5vw; display: flex; flex-direction: column; gap: 0;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-top: 1px solid var(--border);
+            max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;
+            z-index: 999;
+        }
+        .mobile-menu.open { max-height: 200px; padding: 20px 5vw; gap: 15px; }
+        .mobile-menu a { text-decoration: none; color: var(--dark); font-size: 1.2rem; font-weight: 700; font-family: 'Outfit', sans-serif; transition: color 0.3s;}
+        .mobile-menu a:hover { color: var(--brand); }
+
         /* --- IMMERSIVE HERO SECTION --- */
         .hero-parallax {
             height: 85vh; min-height: 600px;
             background: linear-gradient(rgba(39, 37, 34, 0.2), rgba(39, 37, 34, 0.7)), url('images/DSC05935-HDR.jpg') center/cover fixed;
             display: flex; align-items: center; justify-content: center; text-align: center; color: white;
             padding: 0 5vw; position: relative; overflow: hidden;
-            /* OPTIMIZATION */
             will-change: transform;
         }
         .hero-content { max-width: 900px; animation: slideUpFade 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; will-change: transform, opacity; }
@@ -85,7 +102,6 @@
         
         .property-card { 
             cursor: pointer; border-radius: 24px; background: var(--surface); padding: 15px; 
-            /* OPTIMIZED TRANSITIONS & HARDWARE ACCEL */
             transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s; 
             transform-style: preserve-3d; backface-visibility: hidden;
             box-shadow: 0 10px 30px rgba(39, 37, 34, 0.03); border: 1px solid var(--border);
@@ -253,9 +269,16 @@
         @keyframes modalEnter { from { opacity: 0; transform: scale(0.98) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
         @keyframes zoomIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-        /* MOBILE FIXES TO STOP LAG */
+        /* MOBILE FIXES TO STOP OVERFLOW AND LAG */
         @media (max-width: 900px) {
-            .hero-parallax { background-attachment: scroll; } /* REMOVES MAJOR LAG ON MOBILE */
+            /* Hide desktop links and show Hamburger */
+            .nav-links-desktop { display: none; }
+            .hamburger { display: flex; align-items: center; justify-content: center; }
+            .logo { font-size: 1.5rem; }
+            .nav-actions { gap: 15px; }
+            .lang-select { padding: 6px 12px; font-size: 0.9rem; }
+            
+            .hero-parallax { background-attachment: scroll; } 
             .hero-content h1 { font-size: 3.5rem; }
             .about-grid, .modal-content, .contact-grid { grid-template-columns: 1fr; gap: 50px; }
             .features-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -269,14 +292,30 @@
     <header id="main-header">
         <h1 class="logo" onclick="window.scrollTo(0,0)">Spree<span>residence</span></h1>
         <div class="nav-actions">
-            <a href="#about-section" class="contact-link" data-i18n="nav_about">About Us</a>
-            <a href="#contact-section" class="contact-link" data-i18n="nav_contact">Contact</a>
+            <div class="nav-links-desktop">
+                <a href="#about-section" class="contact-link" data-i18n="nav_about">About Us</a>
+                <a href="#contact-section" class="contact-link" data-i18n="nav_contact">Contact</a>
+            </div>
+            
             <select class="lang-select" id="lang-switcher" onchange="changeLanguage()">
                 <option value="en">EN</option>
                 <option value="de">DE</option>
                 <option value="nl">NL</option>
                 <option value="fr">FR</option>
             </select>
+            
+            <div class="hamburger" onclick="toggleMobileMenu()">
+                <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </div>
+        </div>
+        
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="#about-section" onclick="toggleMobileMenu()" data-i18n="nav_about">About Us</a>
+            <a href="#contact-section" onclick="toggleMobileMenu()" data-i18n="nav_contact">Contact</a>
         </div>
     </header>
 
@@ -333,7 +372,7 @@
                 <p data-i18n="about_us_p2">Whether you're visiting for business or leisure, our mission is to provide an unforgettable stay with boutique hotel-grade amenities, absolute privacy, and seamless experiences tailored just for you.</p>
             </div>
             <div class="about-visual anim-element">
-                <img src="images/DSC05935-HDR.jpg" alt="About Spreeresidence" class="about-img" loading="lazy">
+                <img src="images/DSC05935-HDR.jpg" alt="About Spreeresidence" class="about-img" loading="lazy" decoding="async">
                 <div class="about-badge" data-i18n="about_us_badge">Flexible Living, Made Easy.</div>
             </div>
         </div>
@@ -631,7 +670,7 @@
                     <div class="property-card scroll-anim" style="transition-delay: ${index * 0.1}s" onclick="openModal(${p.id})">
                         <div class="img-wrap">
                             <div class="badge">★ Guest Favorite</div>
-                            <img src="${p.images[0]}" loading="lazy">
+                            <img src="${p.images[0]}" loading="lazy" decoding="async">
                         </div>
                         <div class="card-info">
                             <div class="card-loc"><span>${p.locs[currentLang]}</span><span style="font-size: 0.9rem; color: var(--brand);">★ 4.9</span></div>
@@ -655,6 +694,12 @@
             }
         });
 
+        // --- MOBILE MENU LOGIC ---
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('open');
+        }
+
         // --- MODAL LOGIC ---
         function openModal(id) {
             const p = propsData.find(x => x.id === id);
@@ -672,19 +717,19 @@
             p.images.forEach((imgSrc, index) => {
                 if (index < 3) {
                     // OPTIMIZATION: Added loading="lazy" to all modal images
-                    galleryHTML += `<div class="gallery-image-wrapper"><img src="${imgSrc}" loading="lazy" onclick="openLightbox(this.src)"></div>`;
+                    galleryHTML += `<div class="gallery-image-wrapper"><img src="${imgSrc}" loading="lazy" decoding="async" onclick="openLightbox(this.src)"></div>`;
                 } else if (index === 3 && p.images.length > 4) {
                     const extraCount = p.images.length - 4;
                     galleryHTML += `
                         <div class="gallery-image-wrapper" onclick="showAllModalImages(this)">
-                            <img src="${imgSrc}" loading="lazy">
+                            <img src="${imgSrc}" loading="lazy" decoding="async">
                             <div class="more-images-overlay">+${extraCount} Photos</div>
                         </div>
                     `;
                 } else if (index === 3 && p.images.length === 4) {
-                    galleryHTML += `<div class="gallery-image-wrapper"><img src="${imgSrc}" loading="lazy" onclick="openLightbox(this.src)"></div>`;
+                    galleryHTML += `<div class="gallery-image-wrapper"><img src="${imgSrc}" loading="lazy" decoding="async" onclick="openLightbox(this.src)"></div>`;
                 } else {
-                    galleryHTML += `<div class="gallery-image-wrapper hidden-image"><img src="${imgSrc}" loading="lazy" onclick="openLightbox(this.src)"></div>`;
+                    galleryHTML += `<div class="gallery-image-wrapper hidden-image"><img src="${imgSrc}" loading="lazy" decoding="async" onclick="openLightbox(this.src)"></div>`;
                 }
             });
             
